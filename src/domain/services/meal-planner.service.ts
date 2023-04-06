@@ -11,6 +11,4 @@ export interface IMealPlannerService<
   update(id: string, mealPlanner: Entity): Observable<Entity>;
 
   delete(id: string): Observable<Entity>;
-
-  findAll(): Observable<Entity[]>;
 }

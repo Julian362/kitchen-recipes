@@ -14,5 +14,5 @@ export interface IIngredientService<
 
   findAll(): Observable<Entity[]>;
 
-  findByName(name: string): Observable<Entity[]>;
+  findByName(name: string): Observable<Entity>;
 }

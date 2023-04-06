@@ -8,7 +8,5 @@ export interface IUserService<
 
   findById(id: string): Observable<Entity>;
 
-  update(doctorId: string, user: Entity): Observable<Entity>;
-
   delete(id: string): Observable<Entity>;
 }
