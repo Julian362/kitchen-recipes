@@ -1,2 +1,2 @@
+export * from '../infrastructure.module';
 export * from './database';
-export * from './persistence.module';

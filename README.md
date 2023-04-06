@@ -23,6 +23,8 @@
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
+### Aplicación de gestión de recetas
+El software de gestión de recetas es una aplicación diseñada para ayudar a los usuarios a organizar y administrar sus recetas de cocina. Los usuarios pueden acceder a la aplicación a través de un sitio web o aplicación móvil, donde pueden ingresar y almacenar sus recetas en una base de datos. Además, la aplicación puede permitir a los usuarios buscar recetas por ingredientes, crear listas de compras para los ingredientes necesarios y planificar menús semanales. La aplicación también puede incluir características de personalización, como la capacidad de ajustar las porciones de las recetas y agregar notas y comentarios a cada receta. Además, algunos software de gestión de recetas pueden proporcionar información nutricional sobre las recetas para ayudar a los usuarios a hacer elecciones saludables y controlar su ingesta de calorías. Esto puede ser especialmente útil para las personas que quieren mantener un seguimiento de su dieta o para aquellas que buscan cocinar de manera más eficiente y planificada.
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
