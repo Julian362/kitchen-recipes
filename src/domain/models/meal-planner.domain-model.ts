@@ -4,7 +4,7 @@ import { RecipeDomainModel } from './recipes.domain-model';
 
 export class MealPlannerDomainModel implements IMealPlannerDomainModel {
   name: string;
-  menuDays: { day: string; recipes: RecipeDomainModel[] };
-  amount: { ingredients: IngredientDomainModel; amount: number };
+  menuDays: { day: string; recipes: RecipeDomainModel[] }[];
+  amount: { ingredients: IngredientDomainModel; amount: number }[];
   notes: string;
 }
