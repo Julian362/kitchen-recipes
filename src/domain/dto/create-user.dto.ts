@@ -1,3 +1,6 @@
-import { IUserDomainModel } from '@domain/models';
-
-export type ICreateUserDto = IUserDomainModel;
+export interface ICreateUserDto {
+  name: string;
+  email: string;
+  photoUrl: string;
+  googleId: string;
+}

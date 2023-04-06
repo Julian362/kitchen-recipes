@@ -1,3 +1,5 @@
-import { IMealPlannerDomainModel } from '@domain/models';
-
-export type ICreateMealPlannerDto = IMealPlannerDomainModel;
+export interface ICreateMealPlannerDto {
+  name: string;
+  menuDays: { day: string; recipes: string[] }[];
+  notes: string;
+}
