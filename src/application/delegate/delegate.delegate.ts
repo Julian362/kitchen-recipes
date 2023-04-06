@@ -1,3 +1,4 @@
+import { IUseCase } from '@application/interface';
 import {
   CreateIngredientUseCase,
   CreateMealPlannerUseCase,
@@ -21,7 +22,6 @@ import {
   IUserService,
 } from '@domain/services';
 import { Observable } from 'rxjs';
-import { IUseCase } from '../interface/use-case.interface';
 
 export class Delegate implements IUseCase {
   constructor(

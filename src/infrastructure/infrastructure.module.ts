@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { KitchenRecipesController } from './controllers';
 import { MongoModule } from './persistence/database';
 import {
   IngredientService,
@@ -9,7 +10,7 @@ import {
 
 @Module({
   imports: [MongoModule],
-  controllers: [],
+  controllers: [KitchenRecipesController],
   providers: [
     MealPlannerService,
     UserService,

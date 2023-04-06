@@ -1,6 +1,6 @@
+import { JWTConstants } from '@infrastructure/services/sectret';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { jwtConstants } from '@patient/infrastructure/services/secret';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
     const authHeader = request.headers.login;
     const token = authHeader.split(' ')[0];
     return this.jwtService.verify(token, {
-      secret: jwtConstants.secret,
+      secret: JWTConstants.secret,
     });
   }
 }
