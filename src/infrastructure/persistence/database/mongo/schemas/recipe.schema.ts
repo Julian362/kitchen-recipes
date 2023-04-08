@@ -1,10 +1,10 @@
-import { RecipeDomainModel } from '@domain/models';
+import { RecipesModel } from '@infrastructure/models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, SchemaTypes } from 'mongoose';
 import { IngredientMongo } from './ingredient.schema';
 
 @Schema({ collection: 'recipes', versionKey: false })
-export class RecipeMongo extends RecipeDomainModel {
+export class RecipeMongo extends RecipesModel {
   @Prop({ type: SchemaTypes.ObjectId, auto: true })
   _id?: string;
 
@@ -18,12 +18,12 @@ export class RecipeMongo extends RecipeDomainModel {
     type: [
       {
         amount: Number,
-        ingredient: { type: SchemaTypes.ObjectId, ref: 'Ingredient' },
+        ingredient: { type: SchemaTypes.ObjectId, ref: IngredientMongo.name },
       },
     ],
     required: true,
   })
-  ingredients: { amount: number; ingredient: IngredientMongo }[];
+  ingredients: { amount: number; ingredientId: IngredientMongo['_id'] }[];
 
   @Prop({ type: String, required: true })
   photoUrl: string;

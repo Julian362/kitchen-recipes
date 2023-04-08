@@ -1,4 +1,4 @@
-import { IUserService } from '@domain/services';
+import { IUserService } from '@domain/services/user.service';
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { UserRepository } from '../repositories';

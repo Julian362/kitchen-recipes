@@ -27,14 +27,11 @@ export class IngredientRepository
   findById(document: string): Observable<IngredientMongo> {
     return from(this.repository.findById(document));
   }
-  delete(_id: string): Observable<IngredientMongo> {
-    return from(this.repository.findByIdAndDelete(_id));
-  }
   update(_id: string, entity: IngredientMongo): Observable<IngredientMongo> {
     return from(this.repository.findByIdAndUpdate(_id, entity));
   }
   findAll(): Observable<IngredientMongo[]> {
-    return from(this.repository.find()) as Observable<IngredientMongo[]>;
+    return from(this.repository.find().exec());
   }
   findByName(name: string): Observable<IngredientMongo> {
     return from(this.repository.findOne({ name }));

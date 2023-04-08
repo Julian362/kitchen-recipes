@@ -1,14 +1,14 @@
 import { IUpdateIngredientDto } from '@domain/dto';
-import { IsNumber, IsPositive, IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class UpdateIngredientDto implements IUpdateIngredientDto {
   @IsString()
+  @IsOptional()
   name?: string;
   @IsString()
+  @IsOptional()
   description?: string;
-  @IsNumber()
-  @IsPositive()
-  unit?: number;
   @IsString()
+  @IsOptional()
   photoUrl?: string;
 }

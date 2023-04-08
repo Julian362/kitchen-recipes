@@ -2,15 +2,15 @@ import { ICreateMealPlannerDto } from '@domain/dto';
 import {
   IsArray,
   IsNotEmpty,
-  IsObject,
+  IsNumber,
   IsString,
   ValidateNested,
 } from 'class-validator';
 
 export class CreateMealPlannerDto implements ICreateMealPlannerDto {
-  @IsObject()
+  @IsArray()
   @ValidateNested({ each: true })
-  menuDays: IMenuDay[];
+  amount: AmountDto[];
 
   @IsNotEmpty()
   @IsString()
@@ -19,17 +19,11 @@ export class CreateMealPlannerDto implements ICreateMealPlannerDto {
   @IsNotEmpty()
   @IsString()
   name: string;
-
-  @IsString()
-  @IsNotEmpty()
-  description: string;
 }
 
-class IMenuDay {
+class AmountDto {
+  @IsNumber()
+  amount: number;
   @IsString()
-  day: string;
-
-  @IsArray()
-  @IsString({ each: true })
-  recipes: string[];
+  ingredientId: string;
 }

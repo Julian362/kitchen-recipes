@@ -17,35 +17,36 @@ import {
   Put,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
+
 import {
-  IngredientModel,
   IngredientService,
   MealPlannerService,
   RecipeService,
   UserService,
-} from '..';
+} from '@infrastructure/services';
+import { IngredientModel } from '..';
 import { UserModel } from '../models/user.model';
 
 @Controller()
 export class KitchenRecipesController {
+  private readonly delegate: Delegate;
   constructor(
     private readonly ingredientService: IngredientService,
     private readonly recipeService: RecipeService,
     private readonly mealPlannerService: MealPlannerService,
     private readonly userService: UserService,
-    private readonly delegate: Delegate,
   ) {
     this.delegate = new Delegate(
-      this.recipeService,
-      this.ingredientService,
-      this.mealPlannerService,
-      this.userService,
+      recipeService,
+      ingredientService,
+      mealPlannerService,
+      userService,
     );
   }
 
-  @Get('ingredients')
+  @Get('ingredient')
   getIngredients(): Observable<IngredientModel[]> {
-    this.delegate.toGetIngredient();
+    this.delegate.toGetAllIngredients();
     return this.delegate.execute();
   }
   @Get('ingredient/:id')
@@ -61,19 +62,18 @@ export class KitchenRecipesController {
     return this.delegate.execute(name);
   }
   @Get('meal-planner/:id')
-  getMealPlanner(): Observable<MealPlannerModel> {
+  getMealPlanner(@Param('id') id: string): Observable<MealPlannerModel> {
     this.delegate.toGetMealPlanner();
-    return this.delegate.execute();
+    return this.delegate.execute(id);
   }
   @Get('user/:id')
-  getUser(): Observable<UserModel> {
+  getUser(@Param('id') id: string): Observable<UserModel> {
     this.delegate.toGetUser();
-    return this.delegate.execute();
+    return this.delegate.execute(id);
   }
-
-  @Delete('ingredient/:id')
-  deleteIngredient(@Param('id') id: string): Observable<IngredientModel> {
-    this.delegate.toDeleteIngredient();
+  @Get('recipe/:id')
+  getRecipes(@Param('id') id: string): Observable<RecipesModel[]> {
+    this.delegate.toGetRecipe();
     return this.delegate.execute(id);
   }
   @Delete('meal-planner/:id')

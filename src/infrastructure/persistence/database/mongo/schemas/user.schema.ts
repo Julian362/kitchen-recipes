@@ -1,4 +1,4 @@
-import { UserDomainModel } from '@domain/models';
+import { UserModel } from '@infrastructure/models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, SchemaTypes } from 'mongoose';
 import { MealPlannerMongo } from './meal-planner.schema';
@@ -8,7 +8,7 @@ import { RecipeMongo } from './recipe.schema';
   collection: 'users',
   versionKey: false,
 })
-export class UserMongo extends UserDomainModel {
+export class UserMongo extends UserModel {
   @Prop({
     type: SchemaTypes.ObjectId,
     auto: true,
@@ -27,11 +27,11 @@ export class UserMongo extends UserDomainModel {
   @Prop({ type: String, required: true, unique: true })
   googleId: string;
 
-  @Prop({ type: [SchemaTypes.ObjectId], ref: 'Recipe' })
-  recipes?: RecipeMongo[];
+  @Prop({ type: [SchemaTypes.ObjectId], ref: RecipeMongo.name })
+  recipesIds?: RecipeMongo['_id'][];
 
-  @Prop({ type: [SchemaTypes.ObjectId], ref: 'MealPlanner' })
-  mealPlanner?: MealPlannerMongo[];
+  @Prop({ type: [SchemaTypes.ObjectId], ref: MealPlannerMongo.name })
+  mealPlannerId?: MealPlannerMongo['_id'][];
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserMongo);

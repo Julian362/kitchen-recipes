@@ -1,10 +1,9 @@
-import { MealPlannerDomainModel } from '@domain/models';
-import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { MealPlannerModel } from '@infrastructure/models';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, SchemaTypes } from 'mongoose';
 import { IngredientMongo } from './ingredient.schema';
-import { RecipeMongo } from './recipe.schema';
-
-export class MealPlannerMongo extends MealPlannerDomainModel {
+@Schema({ collection: 'meal-planners', versionKey: false })
+export class MealPlannerMongo extends MealPlannerModel {
   @Prop({ type: SchemaTypes.ObjectId, auto: true })
   _id?: string;
 
@@ -14,24 +13,13 @@ export class MealPlannerMongo extends MealPlannerDomainModel {
   @Prop({
     type: [
       {
-        day: String,
-        recipes: [{ type: SchemaTypes.ObjectId, ref: 'Recipe' }],
-      },
-    ],
-    required: true,
-  })
-  menuDays: { day: string; recipes: RecipeMongo[] }[];
-
-  @Prop({
-    type: [
-      {
-        ingredients: { type: SchemaTypes.ObjectId, ref: 'Ingredient' },
+        ingredients: { type: SchemaTypes.ObjectId, ref: IngredientMongo.name },
         amount: Number,
       },
     ],
     required: true,
   })
-  amount: { ingredients: IngredientMongo; amount: number }[];
+  amount: { ingredientId: IngredientMongo['_id']; amount: number }[];
 
   @Prop({ type: String, required: true })
   notes: string;

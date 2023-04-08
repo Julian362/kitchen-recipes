@@ -51,5 +51,5 @@ class Ingredients {
   amount: number;
   @IsNotEmpty()
   @IsString()
-  ingredient: string;
+  ingredientId: string;
 }

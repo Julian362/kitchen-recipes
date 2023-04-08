@@ -1,16 +1,13 @@
 import { Module } from '@nestjs/common';
-import { KitchenRecipesController } from './controllers';
-import { MongoModule } from './persistence/database';
-import {
-  IngredientService,
-  MealPlannerService,
-  RecipeService,
-  UserService,
-} from './services';
+import { MongoModule } from './persistence/database/mongo/mongo.module';
+import { IngredientService } from './services/ingredient.service';
+import { MealPlannerService } from './services/meal-planner.service';
+import { RecipeService } from './services/recipe..service';
+import { UserService } from './services/user.service';
 
 @Module({
   imports: [MongoModule],
-  controllers: [KitchenRecipesController],
+  controllers: [],
   providers: [
     MealPlannerService,
     UserService,

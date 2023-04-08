@@ -1,7 +1,9 @@
-import { IIngredientService } from '@domain/services/';
-import { IngredientRepository } from '@infrastructure/persistence';
+import { IIngredientService } from '@domain/services/ingredient.service';
+import { IngredientRepository } from '@infrastructure/persistence/database/mongo/repositories/ingredient.repository';
+import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { IngredientMongo } from '../schemas/ingredient.schema';
+@Injectable()
 export class IngredientMongoService implements IIngredientService {
   constructor(private readonly ingredientRepository: IngredientRepository) {}
   create(entity: IngredientMongo): Observable<IngredientMongo> {
@@ -12,9 +14,6 @@ export class IngredientMongoService implements IIngredientService {
   }
   update(id: string, ingredient: IngredientMongo): Observable<IngredientMongo> {
     return this.ingredientRepository.update(id, ingredient);
-  }
-  delete(id: string): Observable<IngredientMongo> {
-    return this.ingredientRepository.delete(id);
   }
   findAll(): Observable<IngredientMongo[]> {
     return this.ingredientRepository.findAll();

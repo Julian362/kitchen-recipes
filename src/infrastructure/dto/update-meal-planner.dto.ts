@@ -1,8 +1,7 @@
 import { IUpdateMealPlannerDto } from '@domain/dto';
 import {
-  ArrayMinSize,
-  IsNotEmpty,
-  IsObject,
+  IsArray,
+  IsNumber,
   IsOptional,
   IsString,
   ValidateNested,
@@ -11,18 +10,16 @@ import {
 export class UpdateMealPlannerDto implements IUpdateMealPlannerDto {
   @IsString()
   name?: string;
-  @IsObject()
+  @IsArray()
   @ValidateNested({ each: true })
   @IsOptional()
-  menuDays?: MenuDayDto[];
+  amount?: AmountDto[];
   notes?: string;
 }
 
-class MenuDayDto {
+class AmountDto {
+  @IsNumber()
+  amount: number;
   @IsString()
-  day: string;
-  @IsNotEmpty({ each: true })
-  @IsString({ each: true })
-  @ArrayMinSize(1)
-  recipesId: string[];
+  ingredientId: string;
 }

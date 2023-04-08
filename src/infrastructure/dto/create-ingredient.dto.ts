@@ -1,11 +1,5 @@
 import { ICreateIngredientDto } from '@domain/dto';
-import {
-  IsNotEmpty,
-  IsNumber,
-  IsPositive,
-  IsString,
-  IsUrl,
-} from 'class-validator';
+import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
 
 export class CreateIngredientDto implements ICreateIngredientDto {
   @IsNotEmpty()
@@ -15,10 +9,6 @@ export class CreateIngredientDto implements ICreateIngredientDto {
   @IsString()
   @IsNotEmpty()
   description: string;
-
-  @IsNumber()
-  @IsPositive()
-  unit: number;
 
   @IsUrl()
   @IsNotEmpty()
