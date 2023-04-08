@@ -4,8 +4,9 @@ import {
   CreateMealPlannerUseCase,
   CreateRecipeUseCase,
   CreateUserUseCase,
-  DeleteIngredientUseCase,
+  DeleteMealPlannerUseCase,
   DeleteRecipeUseCase,
+  DeleteUserUseCase,
   GetAllIngredientUseCase,
   GetIngredientByNameUseCase,
   GetMealPlannerUseCase,
@@ -41,36 +42,45 @@ export class Delegate implements IUseCase {
     this.delegate = new CreateIngredientUseCase(this.ingredientService);
   }
   toCreateRecipe(): void {
-    this.delegate = new CreateRecipeUseCase(this.recipesService);
+    this.delegate = new CreateRecipeUseCase(
+      this.recipesService,
+      this.ingredientService,
+    );
   }
   toCreateMealPlanner(): void {
-    this.delegate = new CreateMealPlannerUseCase(this.mealPlannerService);
+    this.delegate = new CreateMealPlannerUseCase(
+      this.mealPlannerService,
+      this.recipesService,
+    );
   }
   toCreateUser(): void {
     this.delegate = new CreateUserUseCase(this.userService);
   }
 
-  toDeleteIngredient(): void {
-    this.delegate = new DeleteIngredientUseCase(this.ingredientService);
-  }
   toDeleteRecipe(): void {
     this.delegate = new DeleteRecipeUseCase(this.recipesService);
   }
   toDeleteMealPlanner(): void {
-    this.delegate = new CreateMealPlannerUseCase(this.mealPlannerService);
+    this.delegate = new DeleteMealPlannerUseCase(this.mealPlannerService);
   }
   toDeleteUser(): void {
-    this.delegate = new CreateUserUseCase(this.userService);
+    this.delegate = new DeleteUserUseCase(this.userService);
   }
 
   toUpdateIngredient(): void {
     this.delegate = new UpdateIngredientUseCase(this.ingredientService);
   }
   toUpdateRecipe(): void {
-    this.delegate = new UpdateRecipeUseCase(this.recipesService);
+    this.delegate = new UpdateRecipeUseCase(
+      this.recipesService,
+      this.ingredientService,
+    );
   }
   toUpdateMealPlanner(): void {
-    this.delegate = new UpdateMealPlannerUseCase(this.mealPlannerService);
+    this.delegate = new UpdateMealPlannerUseCase(
+      this.mealPlannerService,
+      this.recipesService,
+    );
   }
 
   toGetAllIngredients(): void {
