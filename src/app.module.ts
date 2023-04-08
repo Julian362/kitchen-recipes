@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
+import { KitchenRecipesController } from './infrastructure/controllers/kitchen-recipes.controller';
+import { InfrastructureModule } from './infrastructure/infrastructure.module';
 
 @Module({
   imports: [
@@ -12,8 +14,9 @@ import { join } from 'path';
         `.env.${process.env.SCOPE?.trimEnd()}`,
       ),
     }),
+    InfrastructureModule,
   ],
-  controllers: [],
+  controllers: [KitchenRecipesController],
   providers: [],
 })
 export class AppModule {}
