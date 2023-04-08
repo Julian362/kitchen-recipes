@@ -1,5 +1,5 @@
 export interface ICreateMealPlannerDto {
   name: string;
-  menuDays: { day: string; recipes: string[] }[];
   notes: string;
+  amount: { ingredientId: string; amount: number }[];
 }

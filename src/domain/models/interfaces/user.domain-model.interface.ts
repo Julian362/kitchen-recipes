@@ -1,9 +1,6 @@
-import { IMealPlannerDomainModel } from './meal-planner.domain-model.interface';
-import { IRecipeDomainModel } from './recipes.domain-model.interface';
-
 export interface IUserDomainModel {
-  recipes?: IRecipeDomainModel[];
-  mealPlanner?: IMealPlannerDomainModel[];
+  recipesIds?: string[];
+  mealPlannerId?: string[];
   name: string;
   email: string;
   photoUrl: string;

@@ -1,7 +1,7 @@
 export interface ICreateRecipeDto {
   name: string;
   description: string;
-  ingredients: { amount: number; ingredient: string }[];
+  ingredients: { amount: number; ingredientId: string }[];
   photoUrl: string;
   steps: string[];
   notes: string;

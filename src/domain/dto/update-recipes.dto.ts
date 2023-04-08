@@ -1,7 +1,7 @@
 export interface IUpdateRecipesDto {
   name?: string;
   description?: string;
-  ingredients?: { amount: number; ingredientsId: string }[];
+  ingredients?: { amount: number; ingredientId: string }[];
   photoUrl?: string;
   steps?: string[];
   notes?: string;

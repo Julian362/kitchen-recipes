@@ -1,9 +1,7 @@
-import { IIngredientDomainModel } from './ingredient.domain-model.interface';
-
 export interface IRecipeDomainModel {
   name: string;
   description: string;
-  ingredients: { amount: number; ingredient: IIngredientDomainModel }[];
+  ingredients: { amount: number; ingredientId: string }[];
   photoUrl: string;
   steps: string[];
   notes?: string;

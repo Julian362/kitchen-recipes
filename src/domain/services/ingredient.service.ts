@@ -10,8 +10,6 @@ export interface IIngredientService<
 
   update(id: string, ingredient: Entity): Observable<Entity>;
 
-  delete(id: string): Observable<Entity>;
-
   findAll(): Observable<Entity[]>;
 
   findByName(name: string): Observable<Entity>;
