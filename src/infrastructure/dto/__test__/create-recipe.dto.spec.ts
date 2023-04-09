@@ -24,6 +24,7 @@ describe('CreateRecipeDto', () => {
     createRecipeDto.notes = mockCreateRecipeDto.notes;
     createRecipeDto.servings = mockCreateRecipeDto.servings;
     createRecipeDto.nutritionInfo = mockCreateRecipeDto.nutritionInfo;
+    createRecipeDto.userId = mockCreateRecipeDto.userId;
     // Assert
     expect(createRecipeDto.name).toBeDefined();
     expect(createRecipeDto.description).toBeDefined();
@@ -40,6 +41,6 @@ describe('CreateRecipeDto', () => {
     const result = await validate(createRecipeDto);
 
     // Assert
-    expect(result.length).toBe(8);
+    expect(result.length).toBe(9);
   });
 });

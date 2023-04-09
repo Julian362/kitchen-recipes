@@ -2,6 +2,7 @@ import { IUserService } from '@domain/services/user.service';
 import { Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { UserRepository } from '../repositories';
+import { MealPlannerMongo } from '../schemas';
 import { UserMongo } from '../schemas/user.schema';
 
 @Injectable()
@@ -16,5 +17,12 @@ export class UserMongoService implements IUserService {
 
   delete(id: string): Observable<UserMongo> {
     return this.userRepository.delete(id);
+  }
+
+  addMealPlanner(
+    userId: string,
+    mealPlanner: MealPlannerMongo,
+  ): Observable<UserMongo> {
+    return this.userRepository.addMealPlanner(userId, mealPlanner);
   }
 }

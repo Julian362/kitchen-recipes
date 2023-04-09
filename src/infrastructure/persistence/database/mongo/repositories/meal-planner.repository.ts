@@ -20,7 +20,7 @@ export class MealPlannerRepository
     private readonly repository: Model<MealPlannerDocument>,
   ) {}
   update(_id: string, entity: MealPlannerMongo): Observable<MealPlannerMongo> {
-    return from(this.repository.findByIdAndUpdate(_id, entity));
+    return from(this.repository.findByIdAndUpdate(_id, entity, { new: true }));
   }
 
   create(entity: MealPlannerMongo): Observable<MealPlannerMongo> {

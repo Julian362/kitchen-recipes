@@ -44,6 +44,11 @@ export class CreateRecipeDto implements ICreateRecipeDto {
   @IsString()
   @IsNotEmpty()
   nutritionInfo?: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsMongoId()
+  userId: string;
 }
 
 class Ingredients {

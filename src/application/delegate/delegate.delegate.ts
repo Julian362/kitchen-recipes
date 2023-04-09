@@ -52,6 +52,7 @@ export class Delegate implements IUseCase {
     this.delegate = new CreateMealPlannerUseCase(
       this.mealPlannerService,
       this.ingredientService,
+      this.userService,
     );
   }
   toCreateUser(): void {

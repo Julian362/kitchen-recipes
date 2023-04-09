@@ -19,7 +19,7 @@ export class RecipeRepository
     private readonly repository: Model<RecipeDocument>,
   ) {}
   update(_id: string, entity: RecipeMongo): Observable<RecipeMongo> {
-    return from(this.repository.findByIdAndUpdate(_id, entity));
+    return from(this.repository.findByIdAndUpdate(_id, entity, { new: true }));
   }
   create(entity: RecipeMongo): Observable<RecipeMongo> {
     return from(this.repository.create(entity));

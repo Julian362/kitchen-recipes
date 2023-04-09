@@ -48,6 +48,7 @@ describe('RecipeRepository', () => {
           expect(recipeModel.findByIdAndUpdate).toBeCalledWith(
             recipeMongo._id,
             recipeMongo,
+            { new: true },
           );
           expect(result).toBe(recipeMongo);
           done();

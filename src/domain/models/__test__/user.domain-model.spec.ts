@@ -11,7 +11,6 @@ describe('UserDomainModel', () => {
     userDomainModel.mealPlannerId = mockUserDomainModel.mealPlannerId;
     userDomainModel.name = mockUserDomainModel.name;
     userDomainModel.photoUrl = mockUserDomainModel.photoUrl;
-    userDomainModel.recipesIds = mockUserDomainModel.recipesIds;
   });
 
   describe('should be defined and is a instance of UserDomainModel', () => {
@@ -30,7 +29,6 @@ describe('UserDomainModel', () => {
       expect(userDomainModel.mealPlannerId).toBeDefined();
       expect(userDomainModel.name).toBeDefined();
       expect(userDomainModel.photoUrl).toBeDefined();
-      expect(userDomainModel.recipesIds).toBeDefined();
     });
   });
 });

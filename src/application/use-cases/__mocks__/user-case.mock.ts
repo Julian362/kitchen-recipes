@@ -54,6 +54,7 @@ export const recipeMock: RecipeDomainModel = {
   steps: ['step'],
   notes: 'notes',
   nutritionInfo: 'nutritionInfo',
+  userId: 'userId',
 };
 
 export const updateRecipeDtoMock: IUpdateRecipesDto = {
@@ -79,6 +80,7 @@ export const recipeDtoMock: ICreateRecipeDto = {
   steps: ['step'],
   notes: 'notes',
   nutritionInfo: 'nutritionInfo',
+  userId: 'userId',
 };
 
 export const mealPlannerMock: MealPlannerDomainModel = {
@@ -104,8 +106,6 @@ export const userMock: UserDomainModel = {
   googleId: 'googleId',
   name: 'name',
   photoUrl: 'www.example.com/photoUrl.png',
-  mealPlannerId: ['mealPlannerId'],
-  recipesIds: ['recipeId'],
 };
 
 export const userDtoMock: ICreateUserDto = {
@@ -144,6 +144,7 @@ export const userServiceMock: IUserService = {
   create: jest.fn().mockReturnValue(of(userMock)),
   delete: jest.fn().mockReturnValue(of(userMock)),
   findById: jest.fn().mockReturnValue(of(userMock)),
+  addMealPlanner: jest.fn().mockReturnValue(of(userMock)),
 };
 
 export const recipeServiceMockNull: IRecipeService = {

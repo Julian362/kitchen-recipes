@@ -7,4 +7,5 @@ export interface ICreateRecipeDto {
   notes: string;
   servings: number;
   nutritionInfo?: string;
+  userId: string;
 }

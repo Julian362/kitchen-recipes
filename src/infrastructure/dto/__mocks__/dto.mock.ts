@@ -37,6 +37,7 @@ export const mockCreateRecipeDto: CreateRecipeDto = {
   notes: 'mockNotes',
   servings: 1,
   nutritionInfo: 'mockNutritionInfo',
+  userId: 'mockUserId',
 };
 
 export const mockCreateUserDto: CreateUserDto = {

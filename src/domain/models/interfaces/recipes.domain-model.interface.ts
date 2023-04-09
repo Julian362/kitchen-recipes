@@ -7,4 +7,5 @@ export interface IRecipeDomainModel {
   notes?: string;
   servings: number;
   nutritionInfo?: string;
+  userId: string;
 }

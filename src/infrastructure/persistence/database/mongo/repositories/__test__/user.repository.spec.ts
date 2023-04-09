@@ -3,7 +3,7 @@ import { Test } from '@nestjs/testing';
 import { Model } from 'mongoose';
 import { of, throwError } from 'rxjs';
 import { UserRepository } from '../..';
-import { userMongo } from '../../__mocks__/repository.mock';
+import { mealPlannerMongo, userMongo } from '../../__mocks__/repository.mock';
 import { UserDocument, UserMongo } from '../../schemas';
 
 describe('UserRepository', () => {
@@ -21,8 +21,10 @@ describe('UserRepository', () => {
             findOne: jest.fn(),
             findById: jest.fn(),
             findByIdAndDelete: jest.fn(),
+            findByIdAndUpdate: jest.fn(),
             find: jest.fn(),
             delete: jest.fn(),
+            update: jest.fn(),
           },
         },
       ],
@@ -117,6 +119,44 @@ describe('UserRepository', () => {
         .mockReturnValueOnce(throwError(() => new Error()) as any);
 
       userRepository.delete('id').subscribe({
+        // Assert
+        error: (error) => {
+          expect(error).toBeInstanceOf(Error);
+          done();
+        },
+      });
+    });
+  });
+
+  describe('addMealPlanner', () => {
+    it('should return a user', (done) => {
+      // Arrange & Act
+      jest
+        .spyOn(userModel, 'findByIdAndUpdate')
+        .mockReturnValueOnce(of(userMongo) as any);
+
+      userRepository.addMealPlanner('id', mealPlannerMongo).subscribe({
+        // Assert
+        next: (result) => {
+          expect(userModel.findByIdAndUpdate).toBeCalledWith(
+            'id',
+            {
+              $push: { mealPlanners: '5f9b9b9b9b9b9b9b9b9b9b9b' },
+            },
+            { new: true },
+          );
+          expect(result).toBe(userMongo);
+          done();
+        },
+      });
+    });
+    it('should throw an error', (done) => {
+      // Arrange & Act
+      jest
+        .spyOn(userModel, 'findByIdAndUpdate')
+        .mockReturnValueOnce(throwError(() => new Error()) as any);
+
+      userRepository.addMealPlanner('id', mealPlannerMongo).subscribe({
         // Assert
         error: (error) => {
           expect(error).toBeInstanceOf(Error);

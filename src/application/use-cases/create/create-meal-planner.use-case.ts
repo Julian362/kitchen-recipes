@@ -1,7 +1,11 @@
 import { IUseCase } from '@application/interface';
 import { ICreateMealPlannerDto } from '@domain/dto';
 import { MealPlannerDomainModel } from '@domain/models';
-import { IIngredientService, IMealPlannerService } from '@domain/services';
+import {
+  IIngredientService,
+  IMealPlannerService,
+  IUserService,
+} from '@domain/services';
 import { NotFoundException } from '@nestjs/common';
 import {
   Observable,
@@ -17,15 +21,22 @@ export class CreateMealPlannerUseCase implements IUseCase {
   constructor(
     private readonly service: IMealPlannerService,
     private readonly ingredientService: IIngredientService,
+    private readonly userService: IUserService,
   ) {}
 
   execute(
+    id: string,
     mealPlanner: ICreateMealPlannerDto,
   ): Observable<MealPlannerDomainModel> {
     return this.isExistRecipes(mealPlanner).pipe(
       switchMap((entidad) => {
         return entidad
-          ? this.service.create(mealPlanner)
+          ? this.service.create(mealPlanner).pipe(
+              map((entity) => {
+                this.userService.addMealPlanner(id, entity);
+                return entity;
+              }),
+            )
           : throwError(() => new NotFoundException('Recipe not found'));
       }),
     );

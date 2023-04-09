@@ -25,6 +25,7 @@ export const mockRecipeDomainModel: IRecipeDomainModel = {
   notes: 'mockRecipeDomainModel.notes',
   servings: 1,
   nutritionInfo: 'mockRecipeDomainModel.nutritionInfo',
+  userId: 'mockRecipeDomainModel.userId',
 };
 
 export const mockMealPlannerDomainModel: IMealPlannerDomainModel = {
@@ -43,6 +44,5 @@ export const mockUserDomainModel: IUserDomainModel = {
   googleId: 'mockUserDomainModel.googleId',
   name: 'mockUserDomainModel.name',
   photoUrl: 'mockUserDomainModel.photoUrl',
-  mealPlannerId: ['mockUserDomainModel.mealPlannerId'],
-  recipesIds: ['mockUserDomainModel.recipesIds'],
+  mealPlannerId: 'mockUserDomainModel.mealPlannerId',
 };

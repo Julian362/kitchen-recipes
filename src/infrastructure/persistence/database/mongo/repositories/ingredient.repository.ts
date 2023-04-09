@@ -28,7 +28,7 @@ export class IngredientRepository
     return from(this.repository.findById(document));
   }
   update(_id: string, entity: IngredientMongo): Observable<IngredientMongo> {
-    return from(this.repository.findByIdAndUpdate(_id, entity));
+    return from(this.repository.findByIdAndUpdate(_id, entity, { new: true }));
   }
   findAll(): Observable<IngredientMongo[]> {
     return from(this.repository.find().exec());

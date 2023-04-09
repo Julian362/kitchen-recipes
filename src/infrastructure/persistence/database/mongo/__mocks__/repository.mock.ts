@@ -39,6 +39,7 @@ export const recipeMongo: RecipeMongo = {
   servings: 1,
   steps: ['Step 1', 'Step 2'],
   nutritionInfo: 'Nutrition Info',
+  userId: '5f9b9b9b9b9b9b9b9b9b9b9b',
 };
 
 export const userMongo: UserMongo = {
@@ -47,7 +48,6 @@ export const userMongo: UserMongo = {
   name: 'Name',
   photoUrl: 'http://photo.com',
   _id: '5f9b9b9b9b9b9b9b9b9b9b9b',
-  recipesIds: ['5f9b9b9b9b9b9b9b9b9b9b9b'],
   mealPlannerId: ['5f9b9b9b9b9b9b9b9b9b9b9b'],
 };
 

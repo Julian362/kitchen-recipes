@@ -50,8 +50,9 @@ describe('MealPlannerRepository', () => {
           expect(mealPlannerModel.findByIdAndUpdate).toBeCalledWith(
             mealPlannerMongo._id,
             mealPlannerMongo,
+            { new: true },
           );
-          expect(result).toBe(mealPlannerMongo);
+          expect(result).toEqual(mealPlannerMongo);
           done();
         },
       });

@@ -28,4 +28,5 @@ export const userServiceMock: IUserService = {
   create: jest.fn(),
   delete: jest.fn(),
   findById: jest.fn(),
+  addMealPlanner: jest.fn(),
 };
