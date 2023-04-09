@@ -1,4 +1,4 @@
-import { JWTConstants } from '@infrastructure/services/sectret';
+import { JWTConstants } from '@infrastructure/services/secret';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Observable } from 'rxjs';

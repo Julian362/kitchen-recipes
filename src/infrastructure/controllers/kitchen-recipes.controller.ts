@@ -4,7 +4,7 @@ import { CreateMealPlannerDto } from '@infrastructure/dto/create-meal-planner.dt
 import { CreateUserDto } from '@infrastructure/dto/create-user.dto';
 import { UpdateIngredientDto } from '@infrastructure/dto/update-ingredient.dto';
 import { UpdateMealPlannerDto } from '@infrastructure/dto/update-meal-planner.dto';
-import { UpdateRecipesDto } from '@infrastructure/dto/update-recipes.dto';
+import { UpdateRecipeDto } from '@infrastructure/dto/update-recipe.dto';
 import { MealPlannerModel } from '@infrastructure/models/meal-planner.model';
 import { RecipesModel } from '@infrastructure/models/recipes.model';
 import {
@@ -136,7 +136,7 @@ export class KitchenRecipesController {
   @Put('recipe/:id')
   updateRecipe(
     @Param('id') id: string,
-    @Body() recipe: UpdateRecipesDto,
+    @Body() recipe: UpdateRecipeDto,
   ): Observable<RecipesModel> {
     this.delegate.toUpdateRecipe();
     return this.delegate.execute(id, recipe);

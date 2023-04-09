@@ -1,14 +1,22 @@
 import { IUseCase } from '@application/interface';
 import { ICreateMealPlannerDto } from '@domain/dto';
 import { MealPlannerDomainModel } from '@domain/models';
-import { IMealPlannerService, IRecipeService } from '@domain/services';
+import { IIngredientService, IMealPlannerService } from '@domain/services';
 import { NotFoundException } from '@nestjs/common';
-import { Observable, map, of, switchMap, throwError } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  forkJoin,
+  map,
+  of,
+  switchMap,
+  throwError,
+} from 'rxjs';
 
 export class UpdateMealPlannerUseCase implements IUseCase {
   constructor(
     private readonly service: IMealPlannerService,
-    private readonly recipeService: IRecipeService,
+    private readonly ingredientService: IIngredientService,
   ) {}
 
   execute(
@@ -19,24 +27,40 @@ export class UpdateMealPlannerUseCase implements IUseCase {
       switchMap((entity) => {
         const updateMealPlanner = new MealPlannerDomainModel();
         updateMealPlanner.name = mealPlanner.name || entity.name;
-        updateMealPlanner.amount = mealPlanner.amount || entity.amount;
         updateMealPlanner.notes = mealPlanner.notes || entity.notes;
-        return this.service.update(_id, updateMealPlanner);
+        return mealPlanner.amount
+          ? this.isExistIngredients(mealPlanner).pipe(
+              switchMap((entidad) => {
+                updateMealPlanner.amount = mealPlanner.amount;
+                return entidad
+                  ? this.service.update(_id, updateMealPlanner)
+                  : throwError(
+                      () => new NotFoundException('Ingredient not found'),
+                    );
+              }),
+            )
+          : this.service.update(_id, updateMealPlanner);
       }),
     );
   }
 
-  isExistRecipes(mealPlanner: ICreateMealPlannerDto): Observable<boolean> {
-    const result = mealPlanner.amount.every((recipe) =>
-      this.recipeService.findById(recipe.ingredientId).pipe(
+  isExistIngredients(mealPlanner: ICreateMealPlannerDto): Observable<boolean> {
+    const ids = mealPlanner.amount.map((ingredient) => ingredient.ingredientId);
+    const observables = ids.map((id) =>
+      this.ingredientService.findById(id).pipe(
         map((entity) => {
-          return entity ? true : false;
+          return entity !== null;
         }),
+        catchError(() => of(false)),
       ),
     );
 
-    return result
-      ? of(true)
-      : throwError(() => new NotFoundException('Recipe not found'));
+    return forkJoin(observables).pipe(
+      map((results) =>
+        results.every((result) => {
+          return result;
+        }),
+      ),
+    );
   }
 }

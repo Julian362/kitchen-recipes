@@ -1,6 +1,7 @@
 import { ICreateMealPlannerDto } from '@domain/dto';
 import {
   IsArray,
+  IsMongoId,
   IsNotEmpty,
   IsNumber,
   IsString,
@@ -25,5 +26,6 @@ class AmountDto {
   @IsNumber()
   amount: number;
   @IsString()
+  @IsMongoId()
   ingredientId: string;
 }

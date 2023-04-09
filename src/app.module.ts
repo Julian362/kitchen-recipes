@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { APP_FILTER } from '@nestjs/core';
 import { join } from 'path';
+import { MongoServerErrorExceptionFilter } from './infrastructure';
 import { KitchenRecipesController } from './infrastructure/controllers/kitchen-recipes.controller';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
 
@@ -17,6 +19,11 @@ import { InfrastructureModule } from './infrastructure/infrastructure.module';
     InfrastructureModule,
   ],
   controllers: [KitchenRecipesController],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: MongoServerErrorExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}

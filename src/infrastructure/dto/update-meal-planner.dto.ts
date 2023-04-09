@@ -8,12 +8,15 @@ import {
 } from 'class-validator';
 
 export class UpdateMealPlannerDto implements IUpdateMealPlannerDto {
+  @IsOptional()
   @IsString()
   name?: string;
   @IsArray()
   @ValidateNested({ each: true })
   @IsOptional()
   amount?: AmountDto[];
+  @IsOptional()
+  @IsString()
   notes?: string;
 }
 

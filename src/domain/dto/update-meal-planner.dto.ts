@@ -1,5 +1,5 @@
 export interface IUpdateMealPlannerDto {
   name?: string;
-  menuDays?: { day: string; recipesId: string[] }[];
+  amount?: { amount: number; ingredientId: string }[];
   notes?: string;
 }

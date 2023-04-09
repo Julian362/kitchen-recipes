@@ -7,7 +7,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-export class UpdateRecipesDto implements IUpdateRecipesDto {
+export class UpdateRecipeDto implements IUpdateRecipesDto {
   @IsString()
   @IsOptional()
   name?: string;
@@ -25,6 +25,7 @@ export class UpdateRecipesDto implements IUpdateRecipesDto {
   @IsOptional()
   steps?: string[];
   @IsString()
+  @IsOptional()
   notes?: string;
   @IsNumber()
   @IsOptional()

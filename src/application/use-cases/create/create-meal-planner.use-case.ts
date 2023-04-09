@@ -1,38 +1,53 @@
 import { IUseCase } from '@application/interface';
 import { ICreateMealPlannerDto } from '@domain/dto';
 import { MealPlannerDomainModel } from '@domain/models';
-import { IMealPlannerService, IRecipeService } from '@domain/services';
+import { IIngredientService, IMealPlannerService } from '@domain/services';
 import { NotFoundException } from '@nestjs/common';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  forkJoin,
+  map,
+  of,
+  switchMap,
+  throwError,
+} from 'rxjs';
 
 export class CreateMealPlannerUseCase implements IUseCase {
   constructor(
     private readonly service: IMealPlannerService,
-    private readonly recipeService: IRecipeService,
+    private readonly ingredientService: IIngredientService,
   ) {}
 
   execute(
     mealPlanner: ICreateMealPlannerDto,
   ): Observable<MealPlannerDomainModel> {
-    this.isExistRecipes(mealPlanner).pipe(
-      catchError((error) => {
-        return throwError(() => new NotFoundException(error));
+    return this.isExistRecipes(mealPlanner).pipe(
+      switchMap((entidad) => {
+        return entidad
+          ? this.service.create(mealPlanner)
+          : throwError(() => new NotFoundException('Recipe not found'));
       }),
     );
-    return this.service.create(mealPlanner);
   }
 
   isExistRecipes(mealPlanner: ICreateMealPlannerDto): Observable<boolean> {
-    const result = mealPlanner.amount.every((recipe) =>
-      this.recipeService.findById(recipe.ingredientId).pipe(
+    const ids = mealPlanner.amount.map((ingredient) => ingredient.ingredientId);
+    const observables = ids.map((id) =>
+      this.ingredientService.findById(id).pipe(
         map((entity) => {
-          return entity ? true : false;
+          return entity !== null;
         }),
+        catchError(() => of(false)),
       ),
     );
 
-    return result
-      ? of(true)
-      : throwError(() => new NotFoundException('Recipe not found'));
+    return forkJoin(observables).pipe(
+      map((results) =>
+        results.every((result) => {
+          return result;
+        }),
+      ),
+    );
   }
 }

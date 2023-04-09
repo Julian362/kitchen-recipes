@@ -9,6 +9,7 @@ import {
   DeleteUserUseCase,
   GetAllIngredientUseCase,
   GetIngredientByNameUseCase,
+  GetIngredientUseCase,
   GetMealPlannerUseCase,
   GetRecipeUseCase,
   GetUserUseCase,
@@ -50,7 +51,7 @@ export class Delegate implements IUseCase {
   toCreateMealPlanner(): void {
     this.delegate = new CreateMealPlannerUseCase(
       this.mealPlannerService,
-      this.recipesService,
+      this.ingredientService,
     );
   }
   toCreateUser(): void {
@@ -79,7 +80,7 @@ export class Delegate implements IUseCase {
   toUpdateMealPlanner(): void {
     this.delegate = new UpdateMealPlannerUseCase(
       this.mealPlannerService,
-      this.recipesService,
+      this.ingredientService,
     );
   }
 
@@ -87,7 +88,7 @@ export class Delegate implements IUseCase {
     this.delegate = new GetAllIngredientUseCase(this.ingredientService);
   }
   toGetIngredient(): void {
-    this.delegate = new GetIngredientByNameUseCase(this.ingredientService);
+    this.delegate = new GetIngredientUseCase(this.ingredientService);
   }
   toGetIngredientByNames(): void {
     this.delegate = new GetIngredientByNameUseCase(this.ingredientService);

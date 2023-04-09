@@ -3,7 +3,15 @@ import { ICreateRecipeDto } from '@domain/dto';
 import { RecipeDomainModel } from '@domain/models';
 import { IIngredientService, IRecipeService } from '@domain/services';
 import { NotFoundException } from '@nestjs/common';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+import {
+  Observable,
+  catchError,
+  forkJoin,
+  map,
+  of,
+  switchMap,
+  throwError,
+} from 'rxjs';
 
 export class CreateRecipeUseCase implements IUseCase {
   constructor(
@@ -12,25 +20,33 @@ export class CreateRecipeUseCase implements IUseCase {
   ) {}
 
   execute(recipe: ICreateRecipeDto): Observable<RecipeDomainModel> {
-    this.isExistIngredients(recipe).pipe(
-      catchError((error) => {
-        return throwError(() => new NotFoundException(error));
+    return this.isExistIngredients(recipe).pipe(
+      switchMap((entidad) => {
+        return entidad
+          ? this.service.create(recipe)
+          : throwError(() => new NotFoundException('Ingredient not found'));
       }),
     );
-    return this.service.create(recipe);
   }
 
   isExistIngredients(recipe: ICreateRecipeDto): Observable<boolean> {
-    const result = recipe.ingredients.every((ingredient) =>
-      this.ingredientService.findById(ingredient.ingredientId).pipe(
+    const ids = recipe.ingredients.map((ingredient) => ingredient.ingredientId);
+
+    const observables = ids.map((id) =>
+      this.ingredientService.findById(id).pipe(
         map((entity) => {
-          return entity ? true : false;
+          return entity !== null;
         }),
+        catchError(() => of(false)),
       ),
     );
 
-    return result
-      ? of(true)
-      : throwError(() => new NotFoundException('Ingredient not found'));
+    return forkJoin(observables).pipe(
+      map((results) =>
+        results.every((result) => {
+          return result;
+        }),
+      ),
+    );
   }
 }

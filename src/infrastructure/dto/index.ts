@@ -4,4 +4,4 @@ export * from './create-recipe.dto';
 export * from './create-user.dto';
 export * from './update-ingredient.dto';
 export * from './update-meal-planner.dto';
-export * from './update-recipes.dto';
+export * from './update-recipe.dto';

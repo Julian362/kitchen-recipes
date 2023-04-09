@@ -1,6 +1,6 @@
+import { JWTConstants } from '@infrastructure/services/secret';
 import { ExecutionContext } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { jwtConstants } from '@patient/infrastructure/services/secret';
 import { of } from 'rxjs';
 import { AuthGuard } from '../auth.guard';
 
@@ -40,7 +40,7 @@ describe('AuthGuard', () => {
       // Assert
       expect(result).toBe(mockVerifyResult);
       expect(mockJwtService.verify).toHaveBeenCalledWith('Bearer', {
-        secret: jwtConstants.secret,
+        secret: JWTConstants.secret,
       });
     });
 
@@ -57,7 +57,7 @@ describe('AuthGuard', () => {
       // Assert
       expect(result).toBe(mockVerifyResult);
       expect(mockJwtService.verify).toHaveBeenCalledWith('Bearer', {
-        secret: jwtConstants.secret,
+        secret: JWTConstants.secret,
       });
     });
   });

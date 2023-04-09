@@ -2,6 +2,7 @@ import { ICreateRecipeDto } from '@domain/dto';
 import {
   ArrayMinSize,
   IsArray,
+  IsMongoId,
   IsNotEmpty,
   IsNumber,
   IsPositive,
@@ -9,7 +10,7 @@ import {
   IsUrl,
 } from 'class-validator';
 
-export class CreateRecipe implements ICreateRecipeDto {
+export class CreateRecipeDto implements ICreateRecipeDto {
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -51,5 +52,6 @@ class Ingredients {
   amount: number;
   @IsNotEmpty()
   @IsString()
+  @IsMongoId()
   ingredientId: string;
 }
