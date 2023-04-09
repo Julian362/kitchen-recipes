@@ -23,6 +23,7 @@ import {
   IRecipeService,
   IUserService,
 } from '@domain/services';
+import { IAuthService } from '@domain/services/auth.service';
 import { Observable } from 'rxjs';
 
 export class Delegate implements IUseCase {
@@ -31,6 +32,7 @@ export class Delegate implements IUseCase {
     private readonly ingredientService: IIngredientService,
     private readonly mealPlannerService: IMealPlannerService,
     private readonly userService: IUserService,
+    private readonly authService: IAuthService,
   ) {}
 
   private delegate: IUseCase;
@@ -56,7 +58,7 @@ export class Delegate implements IUseCase {
     );
   }
   toCreateUser(): void {
-    this.delegate = new CreateUserUseCase(this.userService);
+    this.delegate = new CreateUserUseCase(this.userService, this.authService);
   }
 
   toDeleteRecipe(): void {
@@ -101,6 +103,6 @@ export class Delegate implements IUseCase {
     this.delegate = new GetRecipeUseCase(this.recipesService);
   }
   toGetUser(): void {
-    this.delegate = new GetUserUseCase(this.userService);
+    this.delegate = new GetUserUseCase(this.userService, this.authService);
   }
 }

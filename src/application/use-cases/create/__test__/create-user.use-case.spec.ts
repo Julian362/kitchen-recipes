@@ -1,5 +1,6 @@
 import { CreateUserUseCase } from '@application/use-cases';
 import {
+  authServiceMock,
   userDtoMock,
   userServiceMock,
 } from '@application/use-cases/__mocks__/user-case.mock';
@@ -8,11 +9,14 @@ import { Observable } from 'rxjs';
 
 describe('CreateUserUseCase', () => {
   let useCase: CreateUserUseCase;
-  let observable: Observable<UserDomainModel>;
+  let observable: Observable<{
+    data: UserDomainModel;
+    token: string;
+  }>;
   describe('execute', () => {
     beforeEach(() => {
       // Arrange
-      useCase = new CreateUserUseCase(userServiceMock);
+      useCase = new CreateUserUseCase(userServiceMock, authServiceMock);
       // Act
       observable = useCase.execute(userDtoMock);
     });
@@ -27,6 +31,16 @@ describe('CreateUserUseCase', () => {
     it('should call the service', () => {
       // Assert
       expect(userServiceMock.create).toBeCalled();
+    });
+    it('should call the authService', () => {
+      // Act
+      useCase.execute(userDtoMock).subscribe((data) => {
+        // Assert
+        expect(data).toBeDefined();
+      });
+
+      // Assert
+      expect(authServiceMock.generateToken).toBeCalled();
     });
   });
 });

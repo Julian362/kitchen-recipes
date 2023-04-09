@@ -4,6 +4,7 @@ import {
   IRecipeService,
   IUserService,
 } from '@domain/services';
+import { IAuthService } from '@domain/services/auth.service';
 
 export const recipeServiceMock: IRecipeService = {
   create: jest.fn(),
@@ -17,6 +18,10 @@ export const ingredientServiceMock: IIngredientService = {
   findById: jest.fn(),
   findByName: jest.fn(),
   update: jest.fn(),
+};
+
+export const authServiceMock: IAuthService = {
+  generateToken: jest.fn(),
 };
 export const mealPlannerServiceMock: IMealPlannerService = {
   create: jest.fn(),

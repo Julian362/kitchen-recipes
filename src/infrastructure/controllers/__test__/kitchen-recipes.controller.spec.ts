@@ -11,6 +11,8 @@ import {
   RecipeService,
   UserService,
 } from '@infrastructure/services';
+import { token } from '@infrastructure/utils/services/__mocks__/auth.mock';
+import { AuthService } from '@infrastructure/utils/services/auth.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { of, throwError } from 'rxjs';
 import { mealPlannerMock } from '../../../application/use-cases/__mocks__/user-case.mock';
@@ -37,6 +39,10 @@ describe('KitchenRecipesController', () => {
         },
         {
           provide: UserService,
+          useValue: {},
+        },
+        {
+          provide: AuthService,
           useValue: {},
         },
         {
@@ -476,11 +482,19 @@ describe('KitchenRecipesController', () => {
     describe('getUser', () => {
       it('should return a user', () => {
         //Arrange
-        jest.spyOn(Delegate.prototype, 'execute').mockReturnValue(of(userMock));
+        jest.spyOn(Delegate.prototype, 'execute').mockReturnValue(
+          of({
+            data: userMock,
+            token: token,
+          }),
+        );
 
         //Act & Assert
         controller.getUser(id).subscribe((data) => {
-          expect(data).toEqual(userMock);
+          expect(data).toEqual({
+            data: userMock,
+            token: token,
+          });
         });
       });
       it('should throw an error', () => {

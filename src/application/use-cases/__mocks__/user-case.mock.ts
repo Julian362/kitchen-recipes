@@ -19,6 +19,7 @@ import {
   IRecipeService,
   IUserService,
 } from '@domain/services';
+import { IAuthService } from '@domain/services/auth.service';
 import { of, throwError } from 'rxjs';
 
 export const ingredientMock: IngredientDomainModel = {
@@ -145,6 +146,15 @@ export const userServiceMock: IUserService = {
   delete: jest.fn().mockReturnValue(of(userMock)),
   findById: jest.fn().mockReturnValue(of(userMock)),
   addMealPlanner: jest.fn().mockReturnValue(of(userMock)),
+};
+
+export const authServiceMock: IAuthService = {
+  generateToken: jest.fn().mockReturnValue(
+    of({
+      data: userMock,
+      token: 'token',
+    }),
+  ),
 };
 
 export const recipeServiceMockNull: IRecipeService = {

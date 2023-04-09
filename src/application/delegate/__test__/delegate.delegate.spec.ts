@@ -19,6 +19,7 @@ import {
 
 import { Delegate } from '..';
 import {
+  authServiceMock,
   ingredientServiceMock,
   mealPlannerServiceMock,
   recipeServiceMock,
@@ -35,6 +36,7 @@ describe('Delegate', () => {
       ingredientServiceMock,
       mealPlannerServiceMock,
       userServiceMock,
+      authServiceMock,
     );
   });
 
