@@ -48,7 +48,7 @@ export const userMongo: UserMongo = {
   name: 'Name',
   photoUrl: 'http://photo.com',
   _id: '5f9b9b9b9b9b9b9b9b9b9b9b',
-  mealPlannerId: ['5f9b9b9b9b9b9b9b9b9b9b9b'],
+  mealPlannerId: '5f9b9b9b9b9b9b9b9b9b9b9b',
 };
 
 export const id = '5f9b9b9b9b9b9b9b9b9b9b9b';

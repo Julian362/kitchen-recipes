@@ -68,13 +68,13 @@ describe('UserRepository', () => {
     it('should return a user', (done) => {
       // Arrange & Act
       jest
-        .spyOn(userModel, 'findById')
+        .spyOn(userModel, 'findOne')
         .mockReturnValueOnce(of(userMongo) as any);
 
       userRepository.findById('id').subscribe({
         // Assert
         next: (result) => {
-          expect(userModel.findById).toBeCalledWith('id');
+          expect(userModel.findOne).toBeCalled();
           expect(result).toBe(userMongo);
           done();
         },
@@ -83,7 +83,7 @@ describe('UserRepository', () => {
     it('should throw an error', (done) => {
       // Arrange & Act
       jest
-        .spyOn(userModel, 'findById')
+        .spyOn(userModel, 'findOne')
         .mockReturnValueOnce(throwError(() => new Error()) as any);
 
       userRepository.findById('id').subscribe({

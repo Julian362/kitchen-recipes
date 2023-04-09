@@ -14,8 +14,8 @@ export class UserRepository implements IBaseRepository<UserMongo> {
   create(entity: UserMongo): Observable<UserMongo> {
     return from(this.repository.create(entity));
   }
-  findById(document: string): Observable<UserMongo> {
-    return from(this.repository.findById(document));
+  findById(id: string): Observable<UserMongo> {
+    return from(this.repository.findOne({ googleId: id }));
   }
   delete(_id: string): Observable<UserMongo> {
     return from(this.repository.findByIdAndDelete(_id));

@@ -2,7 +2,11 @@ import { UserService } from '@infrastructure/services';
 import { Test, TestingModule } from '@nestjs/testing';
 import { of, throwError } from 'rxjs';
 import { UserRepository } from '../..';
-import { userMongo } from '../../__mocks__/repository.mock';
+import {
+  id,
+  mealPlannerMongo,
+  userMongo,
+} from '../../__mocks__/repository.mock';
 
 describe('UserService', () => {
   let service: UserService;
@@ -18,6 +22,7 @@ describe('UserService', () => {
             create: jest.fn(),
             findById: jest.fn(),
             delete: jest.fn(),
+            addMealPlanner: jest.fn(),
           },
         },
       ],
@@ -127,6 +132,48 @@ describe('UserService', () => {
           expect(error).toBeInstanceOf(Error);
           expect(repository.delete).toHaveBeenCalled();
           expect(repository.delete).toHaveBeenCalledWith(userMongo._id);
+          done();
+        },
+      });
+    });
+  });
+
+  describe('addMealPlanner', () => {
+    it('should add a meal planner to a user', (done) => {
+      //Arrange
+      jest
+        .spyOn(repository, 'addMealPlanner')
+        .mockReturnValueOnce(of(userMongo));
+
+      //Act
+      service.addMealPlanner(id, mealPlannerMongo).subscribe((user) => {
+        //Assert
+        expect(user).toEqual(userMongo);
+        expect(repository.addMealPlanner).toHaveBeenCalled();
+        expect(repository.addMealPlanner).toHaveBeenCalledWith(
+          id,
+          mealPlannerMongo,
+        );
+        done();
+      });
+    });
+
+    it('should throw an error', (done) => {
+      //Arrange
+      jest
+        .spyOn(repository, 'addMealPlanner')
+        .mockReturnValueOnce(throwError(() => new Error()) as any);
+
+      //Act
+      service.addMealPlanner(id, mealPlannerMongo).subscribe({
+        error: (error) => {
+          //Assert
+          expect(error).toBeInstanceOf(Error);
+          expect(repository.addMealPlanner).toHaveBeenCalled();
+          expect(repository.addMealPlanner).toHaveBeenCalledWith(
+            id,
+            mealPlannerMongo,
+          );
           done();
         },
       });
