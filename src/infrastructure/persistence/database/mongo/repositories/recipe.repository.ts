@@ -33,4 +33,8 @@ export class RecipeRepository
   findAll(): Observable<RecipeMongo[]> {
     return from(this.repository.find()) as Observable<RecipeMongo[]>;
   }
+
+  findAllByUserId(userId: string): Observable<RecipeMongo[]> {
+    return from(this.repository.find({ userId })) as Observable<RecipeMongo[]>;
+  }
 }

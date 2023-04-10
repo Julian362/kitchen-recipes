@@ -19,4 +19,8 @@ export class RecipeMongoService implements IRecipeService {
   delete(id: string): Observable<RecipeDomainModel> {
     return this.recipeRepository.delete(id);
   }
+
+  findAllByUserId(id: string): Observable<RecipeDomainModel[]> {
+    return this.recipeRepository.findAllByUserId(id);
+  }
 }

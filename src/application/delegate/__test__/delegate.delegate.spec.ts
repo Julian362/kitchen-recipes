@@ -178,6 +178,14 @@ describe('Delegate', () => {
       expect(delegate).toBeDefined();
       expect(delegate['delegate']).toBeInstanceOf(GetUserUseCase);
     });
+    it('should call GetIngredientUseCase ', () => {
+      //Act
+      delegate.toGetIngredient();
+
+      //Assert
+      expect(delegate).toBeDefined();
+      expect(delegate['delegate']).toBeInstanceOf(GetIngredientUseCase);
+    });
   });
 
   describe('Execute', () => {

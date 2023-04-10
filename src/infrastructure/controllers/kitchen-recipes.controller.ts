@@ -57,6 +57,15 @@ export class KitchenRecipesController {
   }
 
   @UseGuards(AuthGuard)
+  @Get('recipes/:id')
+  getRecipesByUserId(
+    @Param('id', ValidateMongoId) id: string,
+  ): Observable<RecipesModel[]> {
+    this.delegate.toGetRecipesByUser();
+    return this.delegate.execute(id);
+  }
+
+  @UseGuards(AuthGuard)
   @Get('ingredient/:id')
   getIngredientById(
     @Param('id', ValidateMongoId) id: string,

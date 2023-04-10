@@ -18,6 +18,8 @@ describe('RecipeService', () => {
             findById: jest.fn(),
             delete: jest.fn(),
             update: jest.fn(),
+            findAll: jest.fn(),
+            findAllByUserId: jest.fn(),
           },
         },
       ],
@@ -160,6 +162,42 @@ describe('RecipeService', () => {
           expect(error).toBeInstanceOf(Error);
           expect(repository.update).toHaveBeenCalled();
           expect(repository.update).toHaveBeenCalledWith(id, recipeMongo);
+          done();
+        },
+      });
+    });
+  });
+
+  describe('findAllByUserId', () => {
+    it('should find all recipes by user id', (done) => {
+      //Arrange
+      jest
+        .spyOn(repository, 'findAllByUserId')
+        .mockReturnValueOnce(of([recipeMongo]));
+
+      //Act
+      service.findAllByUserId(id).subscribe((recipes) => {
+        //Assert
+        expect(recipes).toEqual([recipeMongo]);
+        expect(repository.findAllByUserId).toHaveBeenCalled();
+        expect(repository.findAllByUserId).toHaveBeenCalledWith(id);
+        done();
+      });
+    });
+
+    it('should throw an error when find all recipes by user id', (done) => {
+      //Arrange
+      jest
+        .spyOn(repository, 'findAllByUserId')
+        .mockReturnValueOnce(throwError(() => new Error()) as any);
+
+      //Act
+      service.findAllByUserId(id).subscribe({
+        //Assert
+        error: (error) => {
+          expect(error).toBeInstanceOf(Error);
+          expect(repository.findAllByUserId).toHaveBeenCalled();
+          expect(repository.findAllByUserId).toHaveBeenCalledWith(id);
           done();
         },
       });

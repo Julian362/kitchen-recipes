@@ -11,4 +11,6 @@ export interface IRecipeService<
   update(id: string, recipe: Entity): Observable<Entity>;
 
   delete(id: string): Observable<Entity>;
+
+  findAllByUserId(id: string): Observable<Entity[]>;
 }

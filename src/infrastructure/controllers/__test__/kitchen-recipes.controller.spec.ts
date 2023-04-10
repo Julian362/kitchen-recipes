@@ -13,6 +13,7 @@ import {
 } from '@infrastructure/services';
 import { token } from '@infrastructure/utils/services/__mocks__/auth.mock';
 import { AuthService } from '@infrastructure/utils/services/auth.service';
+import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { of, throwError } from 'rxjs';
 import { mealPlannerMock } from '../../../application/use-cases/__mocks__/user-case.mock';
@@ -46,6 +47,10 @@ describe('KitchenRecipesController', () => {
           useValue: {},
         },
         {
+          provide: JwtService,
+          useValue: {},
+        },
+        {
           provide: Delegate,
           useValue: {
             execute: jest.fn(),
@@ -65,6 +70,7 @@ describe('KitchenRecipesController', () => {
             toGetMealPlanner: jest.fn(),
             toGetRecipe: jest.fn(),
             toGetUser: jest.fn(),
+            toGetRecipesByUser: jest.fn(),
           },
         },
       ],
@@ -505,6 +511,33 @@ describe('KitchenRecipesController', () => {
 
         //Act & Assert
         controller.getUser(id).subscribe({
+          error: (error) => {
+            expect(error).toBeInstanceOf(Error);
+          },
+        });
+      });
+    });
+
+    describe('getRecipesByUserId', () => {
+      it('should return a recipe', () => {
+        //Arrange
+        jest
+          .spyOn(Delegate.prototype, 'execute')
+          .mockReturnValue(of([recipeMock]));
+
+        //Act & Assert
+        controller.getRecipesByUserId(id).subscribe((data) => {
+          expect(data).toEqual([recipeMock]);
+        });
+      });
+      it('should throw an error', () => {
+        //Arrange
+        jest
+          .spyOn(Delegate.prototype, 'execute')
+          .mockReturnValue(throwError(() => new Error()) as any);
+
+        //Act & Assert
+        controller.getRecipesByUserId(id).subscribe({
           error: (error) => {
             expect(error).toBeInstanceOf(Error);
           },

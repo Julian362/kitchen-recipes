@@ -127,6 +127,7 @@ export const recipeServiceMock: IRecipeService = {
   delete: jest.fn().mockReturnValue(of(recipeMock)),
   findById: jest.fn().mockReturnValue(of(recipeMock)),
   update: jest.fn().mockReturnValue(of(recipeMock)),
+  findAllByUserId: jest.fn().mockReturnValue(of([recipeMock])),
 };
 export const ingredientServiceMock: IIngredientService = {
   create: jest.fn().mockReturnValue(of(ingredientMock)),
@@ -162,6 +163,7 @@ export const recipeServiceMockNull: IRecipeService = {
   delete: jest.fn().mockReturnValue(of(null)),
   findById: jest.fn().mockReturnValue(of(null)),
   update: jest.fn().mockReturnValue(of(null)),
+  findAllByUserId: jest.fn().mockReturnValue(of([null])),
 };
 
 export const ingredientServiceMockNull: IIngredientService = {

@@ -11,6 +11,7 @@ export const recipeServiceMock: IRecipeService = {
   delete: jest.fn(),
   findById: jest.fn(),
   update: jest.fn(),
+  findAllByUserId: jest.fn(),
 };
 export const ingredientServiceMock: IIngredientService = {
   create: jest.fn(),

@@ -105,4 +105,7 @@ export class Delegate implements IUseCase {
   toGetUser(): void {
     this.delegate = new GetUserUseCase(this.userService, this.authService);
   }
+  toGetRecipesByUser(): void {
+    this.delegate = new GetUserUseCase(this.userService, this.authService);
+  }
 }

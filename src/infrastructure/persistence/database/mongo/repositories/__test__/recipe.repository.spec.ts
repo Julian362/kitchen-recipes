@@ -167,6 +167,38 @@ describe('RecipeRepository', () => {
     });
   });
 
+  describe('findAllByUserId', () => {
+    it('should return a list of recipes', (done) => {
+      // Arrange & Act
+      jest
+        .spyOn(recipeModel, 'find')
+        .mockReturnValueOnce(of([recipeMongo]) as any);
+
+      recipeRepository.findAllByUserId(id).subscribe({
+        // Assert
+        next: (result) => {
+          expect(recipeModel.find).toBeCalledWith({ userId: id });
+          expect(result).toEqual([recipeMongo]);
+          done();
+        },
+      });
+    });
+    it('should throw an error', (done) => {
+      // Arrange & Act
+      jest
+        .spyOn(recipeModel, 'find')
+        .mockReturnValueOnce(throwError(() => new Error()) as any);
+
+      recipeRepository.findAllByUserId(id).subscribe({
+        // Assert
+        error: (error) => {
+          expect(error).toBeInstanceOf(Error);
+          done();
+        },
+      });
+    });
+  });
+
   describe('delete', () => {
     it('should return a recipe', (done) => {
       // Arrange & Act

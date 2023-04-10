@@ -1,7 +1,7 @@
 import { ingredientServiceMock } from '@application/use-cases/__mocks__/user-case.mock';
 import { IngredientDomainModel } from '@domain/models';
 import { Observable } from 'rxjs';
-import { GetAllIngredientUseCase } from '../get-all-ingredient-use-case';
+import { GetAllIngredientUseCase } from '../get-all-ingredient.use-case';
 
 describe('GetAllIngredientUseCase', () => {
   let useCase: GetAllIngredientUseCase;

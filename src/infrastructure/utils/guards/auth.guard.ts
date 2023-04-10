@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): Observable<boolean> {
     const request = context.switchToHttp().getRequest();
-    const authHeader = request.headers.token;
+    const authHeader = request.headers.login;
     const token = authHeader.split(' ')[0];
     return this.jwtService.verify(token, {
       secret: JWTConstants.secret,
