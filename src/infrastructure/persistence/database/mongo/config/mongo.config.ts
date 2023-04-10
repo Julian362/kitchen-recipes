@@ -14,7 +14,6 @@ export class MongooseConfigService implements MongooseOptionsFactory {
   createMongooseOptions(): MongooseModuleOptions {
     return {
       uri: this.url,
-      dbName: 'kitchen-recipes',
     };
   }
 }
