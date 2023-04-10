@@ -13,7 +13,7 @@ export class MongooseConfigService implements MongooseOptionsFactory {
 
   createMongooseOptions(): MongooseModuleOptions {
     return {
-      uri: this.url,
+      uri: 'mongodb://mongo:0cqHiaBZlPBY2Op9ywsZ@containers-us-west-92.railway.app:7172',
     };
   }
 }
