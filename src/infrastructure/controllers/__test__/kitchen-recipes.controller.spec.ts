@@ -165,9 +165,11 @@ describe('KitchenRecipesController', () => {
           .mockReturnValue(of(mealPlannerMock));
 
         //Act & Assert
-        controller.createMealPlanner(mealPlannerMock).subscribe((data) => {
-          expect(data).toEqual(mealPlannerMock);
-        });
+        controller
+          .createMealPlanner('id', mealPlannerMock)
+          .subscribe((data) => {
+            expect(data).toEqual(mealPlannerMock);
+          });
       });
       it('should throw an error', () => {
         //Arrange
@@ -176,7 +178,7 @@ describe('KitchenRecipesController', () => {
           .mockReturnValue(throwError(() => new Error()) as any);
 
         //Act & Assert
-        controller.createMealPlanner(mealPlannerMock).subscribe({
+        controller.createMealPlanner('id', mealPlannerMock).subscribe({
           error: (error) => {
             expect(error).toBeInstanceOf(Error);
           },

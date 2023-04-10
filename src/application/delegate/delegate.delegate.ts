@@ -17,6 +17,7 @@ import {
   UpdateMealPlannerUseCase,
   UpdateRecipeUseCase,
 } from '@application/use-cases';
+import { GetAllRecipesUseCase } from '@application/use-cases/get/get-all-recipes.use-case';
 import {
   IIngredientService,
   IMealPlannerService,
@@ -106,6 +107,6 @@ export class Delegate implements IUseCase {
     this.delegate = new GetUserUseCase(this.userService, this.authService);
   }
   toGetRecipesByUser(): void {
-    this.delegate = new GetUserUseCase(this.userService, this.authService);
+    this.delegate = new GetAllRecipesUseCase(this.recipesService);
   }
 }

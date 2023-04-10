@@ -19,15 +19,16 @@ import {
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 
+import { IngredientModel } from '@infrastructure/models';
 import {
   IngredientService,
   MealPlannerService,
   RecipeService,
   UserService,
 } from '@infrastructure/services';
+import { AuthGuard } from '@infrastructure/utils';
 import { ValidateMongoId } from '@infrastructure/utils/pipes/mongo-id.pipe';
 import { AuthService } from '@infrastructure/utils/services/auth.service';
-import { AuthGuard, IngredientModel } from '..';
 import { UserModel } from '../models/user.model';
 
 @Controller()
@@ -79,7 +80,7 @@ export class KitchenRecipesController {
   getIngredientByName(
     @Param('name') name: string,
   ): Observable<IngredientModel> {
-    this.delegate.toGetIngredient();
+    this.delegate.toGetIngredientByNames();
     return this.delegate.execute(name);
   }
 
@@ -93,7 +94,7 @@ export class KitchenRecipesController {
   }
 
   @Get('user/:id')
-  getUser(@Param('id', ValidateMongoId) id: string): Observable<{
+  getUser(@Param('id') id: string): Observable<{
     data: UserModel;
     token: string;
   }> {
@@ -145,12 +146,13 @@ export class KitchenRecipesController {
   }
 
   @UseGuards(AuthGuard)
-  @Post('meal-planner')
+  @Post('meal-planner/:id')
   createMealPlanner(
+    @Param('id', ValidateMongoId) id: string,
     @Body() mealPlanner: CreateMealPlannerDto,
   ): Observable<MealPlannerModel> {
     this.delegate.toCreateMealPlanner();
-    return this.delegate.execute(mealPlanner);
+    return this.delegate.execute(id, mealPlanner);
   }
 
   @UseGuards(AuthGuard)

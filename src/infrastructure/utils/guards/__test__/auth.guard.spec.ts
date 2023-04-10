@@ -1,4 +1,3 @@
-import { JWTConstants } from '@infrastructure/services/secret';
 import { ExecutionContext } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { of } from 'rxjs';
@@ -39,9 +38,7 @@ describe('AuthGuard', () => {
 
       // Assert
       expect(result).toBe(mockVerifyResult);
-      expect(mockJwtService.verify).toHaveBeenCalledWith('Bearer', {
-        secret: JWTConstants.secret,
-      });
+      expect(mockJwtService.verify).toHaveBeenCalledWith('Bearer');
     });
 
     it('should return false if the token is not verified', async () => {
@@ -56,9 +53,7 @@ describe('AuthGuard', () => {
 
       // Assert
       expect(result).toBe(mockVerifyResult);
-      expect(mockJwtService.verify).toHaveBeenCalledWith('Bearer', {
-        secret: JWTConstants.secret,
-      });
+      expect(mockJwtService.verify).toHaveBeenCalledWith('Bearer');
     });
   });
 });

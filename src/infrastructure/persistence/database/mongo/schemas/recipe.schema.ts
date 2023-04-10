@@ -39,6 +39,9 @@ export class RecipeMongo extends RecipesModel {
 
   @Prop({ type: String, required: true })
   nutritionInfo?: string;
+
+  @Prop({ type: String, required: true })
+  userId: string;
 }
 
 export const RecipesSchema = SchemaFactory.createForClass(RecipeMongo);

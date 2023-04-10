@@ -3,7 +3,11 @@ import { Test } from '@nestjs/testing';
 import { Model } from 'mongoose';
 import { of, throwError } from 'rxjs';
 import { UserRepository } from '../..';
-import { mealPlannerMongo, userMongo } from '../../__mocks__/repository.mock';
+import {
+  id,
+  mealPlannerMongo,
+  userMongo,
+} from '../../__mocks__/repository.mock';
 import { UserDocument, UserMongo } from '../../schemas';
 
 describe('UserRepository', () => {
@@ -21,7 +25,7 @@ describe('UserRepository', () => {
             findOne: jest.fn(),
             findById: jest.fn(),
             findByIdAndDelete: jest.fn(),
-            findByIdAndUpdate: jest.fn(),
+            findOneAndUpdate: jest.fn(),
             find: jest.fn(),
             delete: jest.fn(),
             update: jest.fn(),
@@ -131,17 +135,17 @@ describe('UserRepository', () => {
   describe('addMealPlanner', () => {
     it('should return a user', (done) => {
       // Arrange & Act
-      jest
-        .spyOn(userModel, 'findByIdAndUpdate')
-        .mockReturnValueOnce(of(userMongo) as any);
+      jest.spyOn(userModel, 'findOneAndUpdate').mockReturnValueOnce({
+        exec: jest.fn().mockReturnValueOnce(of(userMongo)),
+      } as any);
 
       userRepository.addMealPlanner('id', mealPlannerMongo).subscribe({
         // Assert
         next: (result) => {
-          expect(userModel.findByIdAndUpdate).toBeCalledWith(
-            'id',
+          expect(userModel.findOneAndUpdate).toBeCalledWith(
+            { _id: 'id' },
             {
-              $push: { mealPlanners: '5f9b9b9b9b9b9b9b9b9b9b9b' },
+              mealPlannerId: id,
             },
             { new: true },
           );
@@ -152,9 +156,9 @@ describe('UserRepository', () => {
     });
     it('should throw an error', (done) => {
       // Arrange & Act
-      jest
-        .spyOn(userModel, 'findByIdAndUpdate')
-        .mockReturnValueOnce(throwError(() => new Error()) as any);
+      jest.spyOn(userModel, 'findOneAndUpdate').mockReturnValueOnce({
+        exec: jest.fn().mockReturnValueOnce(throwError(() => new Error())),
+      } as any);
 
       userRepository.addMealPlanner('id', mealPlannerMongo).subscribe({
         // Assert

@@ -6,6 +6,7 @@ import { MealPlannerMongo } from './meal-planner.schema';
 @Schema({
   collection: 'users',
   versionKey: false,
+  strict: false,
 })
 export class UserMongo extends UserModel {
   @Prop({
@@ -26,8 +27,11 @@ export class UserMongo extends UserModel {
   @Prop({ type: String, required: true, unique: true })
   googleId: string;
 
-  @Prop({ type: [SchemaTypes.ObjectId], ref: MealPlannerMongo.name })
-  mealPlannerId?: MealPlannerMongo['_id'];
+  @Prop({
+    type: SchemaTypes.ObjectId,
+    ref: MealPlannerMongo.name,
+  })
+  mealPlannerId: MealPlannerMongo['_id'];
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserMongo);

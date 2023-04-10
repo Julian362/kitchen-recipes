@@ -23,11 +23,9 @@ export class UserRepository implements IBaseRepository<UserMongo> {
 
   addMealPlanner(_id: string, entity: MealPlannerMongo): Observable<UserMongo> {
     return from(
-      this.repository.findByIdAndUpdate(
-        _id,
-        { $push: { mealPlanners: entity._id } },
-        { new: true },
-      ),
+      this.repository
+        .findOneAndUpdate({ _id }, { mealPlannerId: entity._id }, { new: true })
+        .exec(),
     );
   }
 }

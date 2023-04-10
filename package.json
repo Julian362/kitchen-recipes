@@ -87,7 +87,8 @@
       "main\\.ts$",
       "main\\.js$",
       ".config\\.ts$",
-      ".eslintrc\\.js$"
+      ".eslintrc\\.js$",
+      "secret\\.ts$"
     ],
     "moduleNameMapper": {
       "@application/(.*)": "<rootDir>/application/$1",

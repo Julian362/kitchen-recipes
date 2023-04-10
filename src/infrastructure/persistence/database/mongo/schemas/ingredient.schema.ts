@@ -5,7 +5,7 @@ import { HydratedDocument, SchemaTypes } from 'mongoose';
 @Schema({ collection: 'ingredients', versionKey: false })
 export class IngredientMongo extends IngredientModel {
   @Prop({ type: SchemaTypes.ObjectId, auto: true })
-  _id?: string;
+  _id: string;
 
   @Prop({ type: String, required: true, unique: true })
   name: string;
