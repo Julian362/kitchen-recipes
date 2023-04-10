@@ -55,14 +55,12 @@ describe('AuthService', () => {
       expect(jwtService.sign).toHaveBeenCalledWith({
         email: userMock.email,
         name: userMock.name,
-        googleId: userMock.googleId,
       });
       result.subscribe({
         next: (result) => {
           expect(jwtService.sign).toHaveBeenCalledWith({
             email: userMock.email,
             name: userMock.name,
-            googleId: userMock.googleId,
           });
           expect(result).toEqual(mockResponse);
           expect(result.data).toEqual(userMock);
