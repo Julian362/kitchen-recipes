@@ -5,6 +5,7 @@ import {
   userServiceMockNull,
 } from '@application/use-cases/__mocks__/user-case.mock';
 import { UserDomainModel } from '@domain/models';
+import { NotFoundException } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { GetUserUseCase } from '../get-user.use-case';
 
@@ -44,14 +45,17 @@ describe('GetUserUseCase', () => {
       expect(authServiceMock.generateToken).toBeCalled();
     });
 
-    it('should return a null if the user is not found', () => {
+    it('should return a throw error', () => {
       // Arrange
       useCase = new GetUserUseCase(userServiceMockNull, authServiceMock);
-
       // Act
-      useCase.execute(getIdMock).subscribe((data) => {
+      useCase.execute(getIdMock).subscribe({
         // Assert
-        expect(data).toBeNull();
+        error: (err) => {
+          expect(err).toBeDefined();
+          expect(err).toBeInstanceOf(NotFoundException);
+          expect(err.message).toBe('User not found');
+        },
       });
     });
   });
