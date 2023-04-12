@@ -149,6 +149,13 @@ export const userServiceMock: IUserService = {
   addMealPlanner: jest.fn().mockReturnValue(of(userMock)),
 };
 
+export const userServiceMockNull: IUserService = {
+  create: jest.fn().mockReturnValue(of(null)),
+  delete: jest.fn().mockReturnValue(of(null)),
+  findById: jest.fn().mockReturnValue(of(null)),
+  addMealPlanner: jest.fn().mockReturnValue(of(null)),
+};
+
 export const authServiceMock: IAuthService = {
   generateToken: jest.fn().mockReturnValue(
     of({

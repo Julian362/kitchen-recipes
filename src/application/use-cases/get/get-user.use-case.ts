@@ -16,7 +16,7 @@ export class GetUserUseCase implements IUseCase {
   }> {
     return this.service.findById(_id).pipe(
       switchMap((user) => {
-        return this.authService.generateToken(user);
+        return user ? this.authService.generateToken(user) : null;
       }),
     );
   }

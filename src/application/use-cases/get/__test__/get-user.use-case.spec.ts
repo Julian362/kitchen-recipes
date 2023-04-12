@@ -2,6 +2,7 @@ import {
   authServiceMock,
   getIdMock,
   userServiceMock,
+  userServiceMockNull,
 } from '@application/use-cases/__mocks__/user-case.mock';
 import { UserDomainModel } from '@domain/models';
 import { Observable } from 'rxjs';
@@ -41,6 +42,17 @@ describe('GetUserUseCase', () => {
 
       // Assert
       expect(authServiceMock.generateToken).toBeCalled();
+    });
+
+    it('should return a null if the user is not found', () => {
+      // Arrange
+      useCase = new GetUserUseCase(userServiceMockNull, authServiceMock);
+
+      // Act
+      useCase.execute(getIdMock).subscribe((data) => {
+        // Assert
+        expect(data).toBeNull();
+      });
     });
   });
 });
