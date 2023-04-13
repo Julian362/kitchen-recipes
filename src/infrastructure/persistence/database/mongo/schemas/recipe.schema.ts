@@ -18,7 +18,7 @@ export class RecipeMongo extends RecipesModel {
     type: [
       {
         amount: Number,
-        ingredient: { type: SchemaTypes.ObjectId, ref: IngredientMongo.name },
+        ingredientId: { type: SchemaTypes.ObjectId, ref: IngredientMongo.name },
       },
     ],
     required: true,
