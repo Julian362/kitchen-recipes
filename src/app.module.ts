@@ -24,7 +24,7 @@ import { InfrastructureModule } from './infrastructure/infrastructure.module';
     JwtModule.register({
       global: true,
       secret: JWTConstants.secret,
-      signOptions: { expiresIn: '2h' },
+      signOptions: { expiresIn: '2d' },
     }),
   ],
   controllers: [KitchenRecipesController],
