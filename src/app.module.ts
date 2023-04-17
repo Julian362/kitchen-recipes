@@ -10,6 +10,13 @@ import { MongoServerErrorExceptionFilter } from './infrastructure';
 import { KitchenRecipesController } from './infrastructure/controllers/kitchen-recipes.controller';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
 
+/**
+ * main module
+ *
+ * @export
+ * @class AppModule
+ * @typedef {AppModule}
+ */
 @Module({
   imports: [
     ConfigModule.forRoot({

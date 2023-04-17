@@ -13,12 +13,34 @@ import {
   throwError,
 } from 'rxjs';
 
+/**
+ * update recipe use case
+ *
+ * @export
+ * @class UpdateRecipeUseCase
+ * @typedef {UpdateRecipeUseCase}
+ * @implements {IUseCase}
+ */
 export class UpdateRecipeUseCase implements IUseCase {
+  /**
+   * Creates an instance of UpdateRecipeUseCase.
+   *
+   * @constructor
+   * @param {IRecipeService} service recipe service
+   * @param {IIngredientService} ingredientService ingredient service
+   */
   constructor(
     private readonly service: IRecipeService,
     private readonly ingredientService: IIngredientService,
   ) {}
 
+  /**
+   * execute update recipe
+   *
+   * @param {string} _id - recipe id
+   * @param {IUpdateRecipesDto} recipe - recipe
+   * @returns {Observable<RecipeDomainModel>} - recipe
+   */
   execute(
     _id: string,
     recipe: IUpdateRecipesDto,
@@ -49,10 +71,22 @@ export class UpdateRecipeUseCase implements IUseCase {
     );
   }
 
+  /**
+   * Description placeholder
+   *
+   * @param {string} _id - recipe id
+   * @returns {Observable<RecipeDomainModel>} - recipe
+   */
   getRecipe(_id: string): Observable<RecipeDomainModel> {
     return this.service.findById(_id);
   }
 
+  /**
+   * Description placeholder
+   *
+   * @param {IUpdateRecipesDto} recipe - recipe
+   * @returns {Observable<boolean>} - boolean
+   */
   isExistIngredients(recipe: IUpdateRecipesDto): Observable<boolean> {
     const ids = recipe.ingredients.map((ingredient) => ingredient.ingredientId);
 

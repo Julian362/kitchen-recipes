@@ -13,12 +13,33 @@ import {
   throwError,
 } from 'rxjs';
 
+/**
+ * use case for create recipe
+ *
+ * @export
+ * @class CreateRecipeUseCase
+ * @typedef {CreateRecipeUseCase}
+ * @implements {IUseCase}
+ */
 export class CreateRecipeUseCase implements IUseCase {
+  /**
+   * Creates an instance of CreateRecipeUseCase.
+   *
+   * @constructor
+   * @param {IRecipeService} service recipe service
+   * @param {IIngredientService} ingredientService ingredient service
+   */
   constructor(
     private readonly service: IRecipeService,
     private readonly ingredientService: IIngredientService,
   ) {}
 
+  /**
+   * execute use case
+   *
+   * @param {ICreateRecipeDto} recipe recipe dto
+   * @returns {Observable<RecipeDomainModel>} recipe created
+   */
   execute(recipe: ICreateRecipeDto): Observable<RecipeDomainModel> {
     return this.isExistIngredients(recipe).pipe(
       switchMap((entidad) => {
@@ -29,6 +50,12 @@ export class CreateRecipeUseCase implements IUseCase {
     );
   }
 
+  /**
+   * check if ingredients exist
+   *
+   * @param {ICreateRecipeDto} recipe recipe dto
+   * @returns {Observable<boolean>} true if exist, false if not
+   */
   isExistIngredients(recipe: ICreateRecipeDto): Observable<boolean> {
     const ids = recipe.ingredients.map((ingredient) => ingredient.ingredientId);
 

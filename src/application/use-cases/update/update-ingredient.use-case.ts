@@ -4,9 +4,30 @@ import { IngredientDomainModel } from '@domain/models';
 import { IIngredientService } from '@domain/services';
 import { Observable, switchMap } from 'rxjs';
 
+/**
+ * update ingredient use case
+ *
+ * @export
+ * @class UpdateIngredientUseCase
+ * @typedef {UpdateIngredientUseCase}
+ * @implements {IUseCase}
+ */
 export class UpdateIngredientUseCase implements IUseCase {
+  /**
+   * Creates an instance of UpdateIngredientUseCase.
+   *
+   * @constructor
+   * @param {IIngredientService} service ingredient service
+   */
   constructor(private readonly service: IIngredientService) {}
 
+  /**
+   * execute update ingredient
+   *
+   * @param {string} id - ingredient id
+   * @param {IUpdateIngredientDto} ingredient - ingredient
+   * @returns {Observable<IngredientDomainModel>} - ingredient
+   */
   execute(
     id: string,
     ingredient: IUpdateIngredientDto,

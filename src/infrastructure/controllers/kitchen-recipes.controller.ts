@@ -31,9 +31,33 @@ import { ValidateMongoId } from '@infrastructure/utils/pipes/mongo-id.pipe';
 import { AuthService } from '@infrastructure/utils/services/auth.service';
 import { UserModel } from '../models/user.model';
 
+/**
+ * kitchen recipes controller
+ *
+ * @export
+ * @class KitchenRecipesController
+ * @typedef {KitchenRecipesController}
+ */
 @Controller()
 export class KitchenRecipesController {
+  /**
+   * delegate instance
+   *
+   * @private
+   * @readonly
+   * @type {Delegate}
+   */
   private readonly delegate: Delegate;
+  /**
+   * Creates an instance of KitchenRecipesController.
+   *
+   * @constructor
+   * @param {IngredientService} ingredientService ingredient service
+   * @param {RecipeService} recipeService recipe service
+   * @param {MealPlannerService} mealPlannerService meal planner service
+   * @param {UserService} userService user service
+   * @param {AuthService} authService auth service
+   */
   constructor(
     private readonly ingredientService: IngredientService,
     private readonly recipeService: RecipeService,
@@ -50,6 +74,11 @@ export class KitchenRecipesController {
     );
   }
 
+  /**
+   * get ingredients
+   *
+   * @returns {Observable<IngredientModel[]>} ingredient model
+   */
   @UseGuards(AuthGuard)
   @Get('ingredient')
   getIngredients(): Observable<IngredientModel[]> {
@@ -57,6 +86,12 @@ export class KitchenRecipesController {
     return this.delegate.execute();
   }
 
+  /**
+   * get recipes
+   *
+   * @param {string} id user id
+   * @returns {Observable<RecipesModel[]>} recipe model
+   */
   @UseGuards(AuthGuard)
   @Get('recipes/:id')
   getRecipesByUserId(
@@ -66,6 +101,12 @@ export class KitchenRecipesController {
     return this.delegate.execute(id);
   }
 
+  /**
+   * get ingredients by recipe id
+   *
+   * @param {string} id recipe id
+   * @returns {Observable<IngredientModel>} ingredient model
+   */
   @UseGuards(AuthGuard)
   @Get('ingredient/:id')
   getIngredientById(
@@ -75,6 +116,12 @@ export class KitchenRecipesController {
     return this.delegate.execute(id);
   }
 
+  /**
+   * get ingredients by recipe name
+   *
+   * @param {string} name recipe name
+   * @returns {Observable<IngredientModel>} ingredient model
+   */
   @UseGuards(AuthGuard)
   @Get('ingredient-name/:name')
   getIngredientByName(
@@ -84,6 +131,12 @@ export class KitchenRecipesController {
     return this.delegate.execute(name);
   }
 
+  /**
+   * get meal planner
+   *
+   * @param {string} id meal-planner id
+   * @returns {Observable<MealPlannerModel>} meal planner model
+   */
   @UseGuards(AuthGuard)
   @Get('meal-planner/:id')
   getMealPlanner(
@@ -93,6 +146,15 @@ export class KitchenRecipesController {
     return this.delegate.execute(id);
   }
 
+  /**
+   * get user
+   *
+   * @param {string} id user id
+   * @returns {Observable<{
+   *  data: UserModel;
+   *  token: string;
+   *}>} user model
+   */
   @Get('user/:id')
   getUser(@Param('id') id: string): Observable<{
     data: UserModel;
@@ -102,6 +164,12 @@ export class KitchenRecipesController {
     return this.delegate.execute(id);
   }
 
+  /**
+   * get recipes
+   *
+   * @param {string} id recipe id
+   * @returns {Observable<RecipesModel[]>} recipe model
+   */
   @UseGuards(AuthGuard)
   @Get('recipe/:id')
   getRecipes(
@@ -111,6 +179,12 @@ export class KitchenRecipesController {
     return this.delegate.execute(id);
   }
 
+  /**
+   * delete meal planner
+   *
+   * @param {string} id recipe id
+   * @returns {Observable<MealPlannerModel>} meal planner model
+   */
   @UseGuards(AuthGuard)
   @Delete('meal-planner/:id')
   deleteMealPlanner(
@@ -120,6 +194,12 @@ export class KitchenRecipesController {
     return this.delegate.execute(id);
   }
 
+  /**
+   * delete recipe
+   *
+   * @param {string} id recipe id
+   * @returns {Observable<RecipesModel>} recipe model
+   */
   @UseGuards(AuthGuard)
   @Delete('recipe/:id')
   deleteRecipe(
@@ -129,6 +209,12 @@ export class KitchenRecipesController {
     return this.delegate.execute(id);
   }
 
+  /**
+   * delete user
+   *
+   * @param {string} id user id
+   * @returns {Observable<UserModel>} user model
+   */
   @UseGuards(AuthGuard)
   @Delete('user/:id')
   deleteUser(@Param('id', ValidateMongoId) id: string): Observable<UserModel> {
@@ -136,6 +222,12 @@ export class KitchenRecipesController {
     return this.delegate.execute(id);
   }
 
+  /**
+   * create ingredient
+   *
+   * @param {CreateIngredientDto} ingredient ingredient dto
+   * @returns {Observable<IngredientModel>} ingredient model
+   */
   @UseGuards(AuthGuard)
   @Post('ingredient')
   createIngredient(
@@ -145,6 +237,13 @@ export class KitchenRecipesController {
     return this.delegate.execute(ingredient);
   }
 
+  /**
+   * create meal planner
+   *
+   * @param {string} id user id
+   * @param {CreateMealPlannerDto} mealPlanner meal planner dto
+   * @returns {Observable<MealPlannerModel>} meal planner model
+   */
   @UseGuards(AuthGuard)
   @Post('meal-planner/:id')
   createMealPlanner(
@@ -155,6 +254,12 @@ export class KitchenRecipesController {
     return this.delegate.execute(id, mealPlanner);
   }
 
+  /**
+   * create recipe
+   *
+   * @param {CreateIngredientDto} recipe recipe dto
+   * @returns {Observable<RecipesModel>} recipe model
+   */
   @UseGuards(AuthGuard)
   @Post('recipe')
   createRecipe(@Body() recipe: CreateIngredientDto): Observable<RecipesModel> {
@@ -162,6 +267,15 @@ export class KitchenRecipesController {
     return this.delegate.execute(recipe);
   }
 
+  /**
+   * create user
+   *
+   * @param {CreateUserDto} user user dto
+   * @returns {Observable<{
+   *  data: UserModel;
+   *  token: string;
+   *}>} user model
+   */
   @Post('user')
   createUser(@Body() user: CreateUserDto): Observable<{
     data: UserModel;
@@ -171,6 +285,13 @@ export class KitchenRecipesController {
     return this.delegate.execute(user);
   }
 
+  /**
+   * update ingredient
+   *
+   * @param {string} id
+   * @param {UpdateIngredientDto} ingredient ingredient dto
+   * @returns {Observable<IngredientModel>} ingredient model
+   */
   @UseGuards(AuthGuard)
   @Put('ingredient/:id')
   updateIngredient(
@@ -181,6 +302,13 @@ export class KitchenRecipesController {
     return this.delegate.execute(id, ingredient);
   }
 
+  /**
+   * update meal planner
+   *
+   * @param {string} id meal planner id
+   * @param {UpdateMealPlannerDto} mealPlanner meal planner dto
+   * @returns {Observable<MealPlannerModel>} meal planner model
+   */
   @UseGuards(AuthGuard)
   @Put('meal-planner/:id')
   updateMealPlanner(
@@ -191,6 +319,13 @@ export class KitchenRecipesController {
     return this.delegate.execute(id, mealPlanner);
   }
 
+  /**
+   * update recipe
+   *
+   * @param {string} id recipe id
+   * @param {UpdateRecipeDto} recipe recipe dto
+   * @returns {Observable<RecipesModel>} recipe model
+   */
   @UseGuards(AuthGuard)
   @Put('recipe/:id')
   updateRecipe(

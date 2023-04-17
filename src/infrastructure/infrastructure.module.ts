@@ -5,6 +5,13 @@ import { MealPlannerService } from './services/meal-planner.service';
 import { RecipeService } from './services/recipe..service';
 import { UserService } from './services/user.service';
 
+/**
+ * module for the infrastructure
+ *
+ * @export
+ * @class InfrastructureModule
+ * @typedef {InfrastructureModule}
+ */
 @Module({
   imports: [MongoModule],
   controllers: [],

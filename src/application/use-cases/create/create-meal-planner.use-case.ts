@@ -17,13 +17,36 @@ import {
   throwError,
 } from 'rxjs';
 
+/**
+ * use case to create a meal planner
+ *
+ * @export
+ * @class CreateMealPlannerUseCase
+ * @typedef {CreateMealPlannerUseCase}
+ * @implements {IUseCase}
+ */
 export class CreateMealPlannerUseCase implements IUseCase {
+  /**
+   * Creates an instance of CreateMealPlannerUseCase.
+   *
+   * @constructor
+   * @param {IMealPlannerService} service meal planner service
+   * @param {IIngredientService} ingredientService ingredient service
+   * @param {IUserService} userService user service
+   */
   constructor(
     private readonly service: IMealPlannerService,
     private readonly ingredientService: IIngredientService,
     private readonly userService: IUserService,
   ) {}
 
+  /**
+   * execute use case
+   *
+   * @param {string} id user id
+   * @param {ICreateMealPlannerDto} mealPlanner meal planner dto
+   * @returns {Observable<MealPlannerDomainModel>} meal planner created
+   */
   execute(
     id: string,
     mealPlanner: ICreateMealPlannerDto,
@@ -42,6 +65,12 @@ export class CreateMealPlannerUseCase implements IUseCase {
     );
   }
 
+  /**
+   * check if recipes exist
+   *
+   * @param {ICreateMealPlannerDto} mealPlanner meal planner dto
+   * @returns {Observable<boolean>} true if exist, false if not
+   */
   isExistRecipes(mealPlanner: ICreateMealPlannerDto): Observable<boolean> {
     const ids = mealPlanner.amount.map((ingredient) => ingredient.ingredientId);
     const observables = ids.map((id) =>
