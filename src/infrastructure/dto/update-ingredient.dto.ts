@@ -1,4 +1,5 @@
 import { IUpdateIngredientDto } from '@domain/dto';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
 
 /**
@@ -15,6 +16,10 @@ export class UpdateIngredientDto implements IUpdateIngredientDto {
    *
    * @type {?string} name
    */
+  @ApiProperty({
+    description: 'name of the ingredient',
+    example: 'ingredient name',
+  })
   @IsString()
   @IsOptional()
   name?: string;
@@ -23,6 +28,10 @@ export class UpdateIngredientDto implements IUpdateIngredientDto {
    *
    * @type {?string} description
    */
+  @ApiProperty({
+    description: 'description of the ingredient',
+    example: 'this is a description',
+  })
   @IsString()
   @IsOptional()
   description?: string;
@@ -31,6 +40,11 @@ export class UpdateIngredientDto implements IUpdateIngredientDto {
    *
    * @type {?string} photoUrl
    */
+  @ApiProperty({
+    description: 'photo url of the ingredient',
+    example:
+      'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+  })
   @IsString()
   @IsOptional()
   photoUrl?: string;

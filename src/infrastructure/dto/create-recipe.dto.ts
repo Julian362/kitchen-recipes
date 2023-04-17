@@ -1,4 +1,5 @@
 import { ICreateRecipeDto } from '@domain/dto';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   ArrayMinSize,
   IsArray,
@@ -24,6 +25,10 @@ export class CreateRecipeDto implements ICreateRecipeDto {
    *
    * @type {string} name
    */
+  @ApiProperty({
+    description: 'name of the recipe',
+    example: 'recipe name',
+  })
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -33,6 +38,10 @@ export class CreateRecipeDto implements ICreateRecipeDto {
    *
    * @type {string} description
    */
+  @ApiProperty({
+    description: 'description of the recipe',
+    example: 'recipe description',
+  })
   @IsString()
   @IsNotEmpty()
   description: string;
@@ -42,6 +51,15 @@ export class CreateRecipeDto implements ICreateRecipeDto {
    *
    * @type {Ingredients[]} ingredients
    */
+  @ApiProperty({
+    description: 'list of ingredients',
+    example: [
+      {
+        amount: 1,
+        ingredientId: '5f9f1b9b9c9d1c0b8c8b9b9b',
+      },
+    ],
+  })
   @IsArray()
   @IsString({ each: true })
   @ArrayMinSize(1)
@@ -52,6 +70,10 @@ export class CreateRecipeDto implements ICreateRecipeDto {
    *
    * @type {string} photoUrl
    */
+  @ApiProperty({
+    description: 'url of the photo',
+    example: 'https://www.google.com',
+  })
   @IsUrl()
   @IsNotEmpty()
   photoUrl: string;
@@ -61,6 +83,10 @@ export class CreateRecipeDto implements ICreateRecipeDto {
    *
    * @type {string[]} steps
    */
+  @ApiProperty({
+    description: 'list of steps',
+    example: ['step 1', 'step 2'],
+  })
   @IsNotEmpty({ each: true })
   @IsString({ each: true })
   @ArrayMinSize(1)
@@ -71,6 +97,10 @@ export class CreateRecipeDto implements ICreateRecipeDto {
    *
    * @type {string} notes
    */
+  @ApiProperty({
+    description: 'notes',
+    example: 'notes',
+  })
   @IsString()
   @IsNotEmpty()
   notes: string;
@@ -80,6 +110,10 @@ export class CreateRecipeDto implements ICreateRecipeDto {
    *
    * @type {number} servings
    */
+  @ApiProperty({
+    description: 'servings',
+    example: 1,
+  })
   @IsNumber()
   @IsPositive()
   servings: number;
@@ -89,6 +123,11 @@ export class CreateRecipeDto implements ICreateRecipeDto {
    *
    * @type {?string} nutritionInfo
    */
+  @ApiProperty({
+    description: 'nutrition info',
+    example: 'nutrition info',
+    required: false,
+  })
   @IsString()
   @IsNotEmpty()
   nutritionInfo?: string;
@@ -98,6 +137,10 @@ export class CreateRecipeDto implements ICreateRecipeDto {
    *
    * @type {string} userId
    */
+  @ApiProperty({
+    description: 'user id',
+    example: '5f9f1b9b9c9d1c0b8c8b9b9b',
+  })
   @IsNotEmpty()
   @IsString()
   @IsMongoId()

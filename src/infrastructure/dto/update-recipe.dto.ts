@@ -1,4 +1,5 @@
 import { IUpdateRecipesDto } from '@domain/dto';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsNumber,
@@ -21,6 +22,11 @@ export class UpdateRecipeDto implements IUpdateRecipesDto {
    *
    * @type {?string} name
    */
+  @ApiProperty({
+    description: 'name of the recipe',
+    example: 'recipe name',
+    required: false,
+  })
   @IsString()
   @IsOptional()
   name?: string;
@@ -29,6 +35,17 @@ export class UpdateRecipeDto implements IUpdateRecipesDto {
    *
    * @type {?IngredientDto[]} ingredients
    */
+  @ApiProperty({
+    description: 'list of ingredients',
+
+    example: [
+      {
+        amount: 1,
+        ingredientId: '5f9f1b9b9c9d1c0b8c8b9b9b',
+      },
+    ],
+    required: false,
+  })
   @IsArray()
   @ValidateNested({ each: true })
   @IsOptional()
@@ -38,6 +55,11 @@ export class UpdateRecipeDto implements IUpdateRecipesDto {
    *
    * @type {?string} description
    */
+  @ApiProperty({
+    description: 'description of the recipe',
+    example: 'this is a description',
+    required: false,
+  })
   @IsString()
   @IsOptional()
   description?: string;
@@ -46,6 +68,11 @@ export class UpdateRecipeDto implements IUpdateRecipesDto {
    *
    * @type {?string} photoUrl
    */
+  @ApiProperty({
+    description: 'url of the photo',
+    example: 'https://www.google.com',
+    required: false,
+  })
   @IsString()
   @IsOptional()
   photoUrl?: string;
@@ -54,6 +81,11 @@ export class UpdateRecipeDto implements IUpdateRecipesDto {
    *
    * @type {?string[]} steps
    */
+  @ApiProperty({
+    description: 'list of steps',
+    example: ['step 1', 'step 2'],
+    required: false,
+  })
   @IsString({ each: true })
   @IsOptional()
   steps?: string[];
@@ -62,6 +94,11 @@ export class UpdateRecipeDto implements IUpdateRecipesDto {
    *
    * @type {?string} notes
    */
+  @ApiProperty({
+    description: 'notes',
+    example: 'this is a note',
+    required: false,
+  })
   @IsString()
   @IsOptional()
   notes?: string;
@@ -70,6 +107,11 @@ export class UpdateRecipeDto implements IUpdateRecipesDto {
    *
    * @type {?number} servings
    */
+  @ApiProperty({
+    description: 'number of servings',
+    example: 1,
+    required: false,
+  })
   @IsNumber()
   @IsOptional()
   servings?: number;
@@ -78,6 +120,11 @@ export class UpdateRecipeDto implements IUpdateRecipesDto {
    *
    * @type {?string} nutritionInfo
    */
+  @ApiProperty({
+    description: 'nutrition info',
+    example: 'this is nutrition info',
+    required: false,
+  })
   @IsString()
   @IsOptional()
   nutritionInfo?: string;

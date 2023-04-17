@@ -1,4 +1,5 @@
 import { IUpdateMealPlannerDto } from '@domain/dto';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsNumber,
@@ -21,6 +22,10 @@ export class UpdateMealPlannerDto implements IUpdateMealPlannerDto {
    *
    * @type {?string} name
    */
+  @ApiProperty({
+    description: 'name of the meal planner',
+    example: 'meal planner name',
+  })
   @IsOptional()
   @IsString()
   name?: string;
@@ -29,6 +34,15 @@ export class UpdateMealPlannerDto implements IUpdateMealPlannerDto {
    *
    * @type {?AmountDto[]} amount
    */
+  @ApiProperty({
+    description: 'amount of the meal planner',
+    example: [
+      {
+        amount: 1,
+        ingredientId: '5f9f1b9b9c9d1c0b8c8b9b9b',
+      },
+    ],
+  })
   @IsArray()
   @ValidateNested({ each: true })
   @IsOptional()
@@ -38,6 +52,10 @@ export class UpdateMealPlannerDto implements IUpdateMealPlannerDto {
    *
    * @type {?string} notes
    */
+  @ApiProperty({
+    description: 'notes of the meal planner',
+    example: 'this is a note',
+  })
   @IsOptional()
   @IsString()
   notes?: string;

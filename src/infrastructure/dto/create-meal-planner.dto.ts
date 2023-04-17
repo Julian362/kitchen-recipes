@@ -1,4 +1,5 @@
 import { ICreateMealPlannerDto } from '@domain/dto';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsMongoId,
@@ -22,6 +23,15 @@ export class CreateMealPlannerDto implements ICreateMealPlannerDto {
    *
    * @type {AmountDto[]} amount
    */
+  @ApiProperty({
+    description: 'amount of the meal planner',
+    example: [
+      {
+        amount: 1,
+        ingredientId: '5f9f1b9b9c9d1c0b8c8b9b9b',
+      },
+    ],
+  })
   @IsArray()
   @ValidateNested({ each: true })
   amount: AmountDto[];
@@ -31,6 +41,10 @@ export class CreateMealPlannerDto implements ICreateMealPlannerDto {
    *
    * @type {string} notes
    */
+  @ApiProperty({
+    description: 'notes of the meal planner',
+    example: 'this is a note',
+  })
   @IsNotEmpty()
   @IsString()
   notes: string;
@@ -40,6 +54,10 @@ export class CreateMealPlannerDto implements ICreateMealPlannerDto {
    *
    * @type {string} name
    */
+  @ApiProperty({
+    description: 'name of the meal planner',
+    example: 'meal planner name',
+  })
   @IsNotEmpty()
   @IsString()
   name: string;

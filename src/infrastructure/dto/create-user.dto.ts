@@ -1,4 +1,5 @@
 import { ICreateUserDto } from '@domain/dto';
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 /**
@@ -15,6 +16,10 @@ export class CreateUserDto implements ICreateUserDto {
    *
    * @type {string} name
    */
+  @ApiProperty({
+    description: 'name of the user',
+    example: 'John Doe',
+  })
   @IsNotEmpty()
   @IsString()
   name: string;
@@ -23,6 +28,10 @@ export class CreateUserDto implements ICreateUserDto {
    *
    * @type {string} email
    */
+  @ApiProperty({
+    description: 'email of the user',
+    example: 'jhon@gmail.comn',
+  })
   @IsNotEmpty()
   @IsString()
   email: string;
@@ -31,6 +40,11 @@ export class CreateUserDto implements ICreateUserDto {
    *
    * @type {string} photoUrl
    */
+  @ApiProperty({
+    description: 'photo url of the user',
+    example:
+      'https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png',
+  })
   @IsNotEmpty()
   @IsString()
   photoUrl: string;
@@ -39,6 +53,10 @@ export class CreateUserDto implements ICreateUserDto {
    *
    * @type {string} googleId
    */
+  @ApiProperty({
+    description: 'google id of the user',
+    example: '123456789',
+  })
   @IsNotEmpty()
   @IsString()
   googleId: string;
